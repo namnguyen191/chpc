@@ -1,3 +1,7 @@
 # EECS3311_Project
 Group Project
- - Noel Chong/216931412
+
+Group Members:
+
+-Menghua Jiang - 219143676
+- Noel Chong/216931412
