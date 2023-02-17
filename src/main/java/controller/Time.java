@@ -7,18 +7,17 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.time.TimeSeries;
+import org.jfree.chart.renderer.xy.XYSplineRenderer;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.time.Year;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.xy.XYSeries;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class Scatter extends View{
-
+public class Time extends View{
     TimeSeriesCollection dataset;
     public void addDataset(RegionData data) {
 
@@ -39,7 +38,7 @@ public class Scatter extends View{
         dataset.addSeries(series1);
         dataset.addSeries(series2);
 
-        TimeSeries series3 = new TimeSeries("area3");
+        TimeSeries series3 = new TimeSeries("city3");
         series3.add(new Year(2018), 2.92);
         series3.add(new Year(2017), 2.87);
         series3.add(new Year(2016), 2.77);
@@ -50,34 +49,58 @@ public class Scatter extends View{
         series3.add(new Year(2011), 2.97);
         series3.add(new Year(2010), 3.05);
 
-
         dataset.addSeries(series3);
     }
 
-
-
     public JFreeChart plotView() {
         XYPlot plot = new XYPlot();
-        XYItemRenderer itemrenderer1 = new XYLineAndShapeRenderer(false, true);
-        XYItemRenderer itemrenderer2 = new XYLineAndShapeRenderer(false, true);
+        XYSplineRenderer splinerenderer1 = new XYSplineRenderer();
+        XYSplineRenderer splinerenderer2 = new XYSplineRenderer();
 
         plot.setDataset(0, dataset);
-        plot.setRenderer(0, itemrenderer1);
+        plot.setRenderer(0, splinerenderer1);
         DateAxis domainAxis = new DateAxis("Year");
         plot.setDomainAxis(domainAxis);
         plot.setRangeAxis(new NumberAxis(""));
 
-//        plot.setDataset(1, dataset2);
-//        plot.setRenderer(1, itemrenderer2);
-//        plot.setRangeAxis(1, new NumberAxis("US$"));
-
         plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
         //plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
 
-        String title = "Scatter: New housing price index (NHPI)";
-        JFreeChart scatterChart = new JFreeChart(title,
+        JFreeChart chart = new JFreeChart("Time series: New housing price index (NHPI) ",
                 new Font("Serif", Font.BOLD, 18), plot, true);
-        return scatterChart;
+        return chart;
     }
+//    public void createTimeSeries(JPanel west) {
+//        addDataset(new RegionData(new RegionDAOImpl()));
+//        JFreeChart chart = plotView();
+
+//        XYPlot plot = new XYPlot();
+//        XYSplineRenderer splinerenderer1 = new XYSplineRenderer();
+//        XYSplineRenderer splinerenderer2 = new XYSplineRenderer();
+//
+//        plot.setDataset(0, dataset);
+//        plot.setRenderer(0, splinerenderer1);
+//        DateAxis domainAxis = new DateAxis("Year");
+//        plot.setDomainAxis(domainAxis);
+//        plot.setRangeAxis(new NumberAxis(""));
+
+//        plot.setDataset(1, dataset);
+//        plot.setRenderer(1, splinerenderer2);
+//        plot.setRangeAxis(1, new NumberAxis("US$"));
+
+//        plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
+//        //plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
+//
+//        JFreeChart chart = new JFreeChart("Time series: New housing price index (NHPI) ",
+//                new Font("Serif", Font.BOLD, 18), plot, true);
+
+//        ChartPanel chartPanel = new ChartPanel(chart);
+//        chartPanel.setPreferredSize(new Dimension(400, 300));
+//        chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+//        chartPanel.setBackground(Color.white);
+//        west.add(chartPanel);
+
+//    }
+
 
 }

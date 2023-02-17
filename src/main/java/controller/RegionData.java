@@ -8,28 +8,33 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegionData implements Subject {
+public class RegionData   {
     private List<View> views;
+    List<Region> regions;
     //DefaultCategoryDataset dataset;
 
-    public RegionData() {
+    public RegionData(RegionDAO dao) {
         this.views =  new ArrayList<View>();
         //this.dataset = new DefaultCategoryDataset();
+        this.regions= dao.getRegions();
     }
 
+    //add one observer
     public void attach(View v) {
         views.add(v);
     }
 
+    //remove an observer
     public void detach(View v){
         views.remove(v);
     }
 
-    public void notifyViews(){
-        for(View v : views){
-            v.update(this);
-        }
-    }
+    //to update all observe
+//    public void notifyViews(){
+//        for(View v : views){
+//            v.update(this);
+//        }
+//    }
 
     public void setDataSet(){
         RegionDAO dao = new RegionDAOImpl();
@@ -40,13 +45,12 @@ public class RegionData implements Subject {
        // updateDataSet();
 
     }
-    public void updateDataSet(){
-        notifyViews();
-    }
+//    public void updateDataSet(){
+//        notifyViews();
+//    }
 
     public List<Region> getData() {
-        RegionDAO dao = new RegionDAOImpl();
-        List<Region> regions= dao.getRegions();
+
 
         return regions;
     }

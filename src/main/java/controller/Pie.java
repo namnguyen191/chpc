@@ -1,6 +1,7 @@
 package controller;
 
 import model.Region;
+import model.RegionDAOImpl;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,25 +13,25 @@ import java.awt.*;
 import java.util.List;
 
 //似乎用不到
-public class Pie implements View {
+public class Pie   {
 	private RegionData subject;
 
 	public Pie() {
 	}
 
-	public Pie(RegionData subject) {
-		this.subject = subject;
-		subject.attach(this);
-	}
+//	public Pie(RegionData subject) {
+//		this.subject = subject;
+//		subject.attach(this);
+//	}
 
-	@Override
-	public void update(Subject updatedSubject) {
-		// TODO Auto-generated method stub
-		if(updatedSubject.equals(subject)){
-			System.out.println("here is pie "+subject);
-		}
-
-	}
+//	@Override
+//	public void update(Subject updatedSubject) {
+//		// TODO Auto-generated method stub
+//		if(updatedSubject.equals(subject)){
+//			System.out.println("here is pie "+subject);
+//		}
+//
+//	}
 
 	public void createPie(JPanel west) {
 		// Different way to create pie chart
@@ -41,7 +42,7 @@ public class Pie implements View {
 		 * JFreeChart pieChart = ChartFactory.createPieChart("Women's Unemployment",
 		 * dataset, true, true, false);
 		 */
-		RegionData data = new RegionData();
+		RegionData data = new RegionData(new RegionDAOImpl());
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		List<Region> regions = data.getData();
 		Region r = regions.get(0);

@@ -164,7 +164,7 @@ public class MainUI extends JFrame {
 		createLine(west);
 		createTimeSeries(west);
 		createBar(west);
-		createPie(west);
+		//createPie(west);
 		createScatter(west);
 		createReport(west);
 
@@ -197,7 +197,7 @@ public class MainUI extends JFrame {
 	private void createScatter(JPanel west) {
 
 		Scatter s = new Scatter();
-		s.createScatter(west);
+		s.createChart(west);
 
 	}
 
@@ -213,19 +213,19 @@ public class MainUI extends JFrame {
 	private void createBar(JPanel west) {
 		Bar bar = new Bar();
 
-		bar.createBar(west);
+		bar.createChart(west);
 
 	}
 
 	private void createLine(JPanel west) {
 		Line l = new Line();
-		l.createLine(west);
+		l.createChart(west);
 
 	}
 
 	private void createTimeSeries(JPanel west) {
-		TimeSeries t = new TimeSeries();
-		t.createTimeSeries(west);
+		Time t = new Time();
+		t.createChart(west);
 
 	}
 
