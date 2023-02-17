@@ -13,16 +13,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 import controller.*;
 import org.jfree.chart.ChartFactory;
@@ -76,20 +73,20 @@ public class MainUI extends JFrame {
 		countriesNames.add("Prairie Region");
 		countriesNames.add("British Columbia");
 		countriesNames.sort(null);
-		JComboBox<String> countriesList = new JComboBox<String>(countriesNames);
+		JComboBox<String> countriesList = new JComboBox<>(countriesNames);
 
 		JLabel fromYear = new JLabel("From");
 		JLabel toYear = new JLabel("To");
-		Vector<String> years = new Vector<String>();
+		Vector<String> years = new Vector<>();
 		for (int i = 2022; i >= 1981; i--) {
 			years.add("" + i);
 		}
-		JComboBox<String> fromList = new JComboBox<String>(years);
-		JComboBox<String> toList = new JComboBox<String>(years);
+		JComboBox<String> fromList = new JComboBox<>(years);
+		JComboBox<String> toList = new JComboBox<>(years);
 		//add month
 		JLabel fromMonth = new JLabel();
 		JLabel toMonth = new JLabel();
-		Vector<String> monthes = new Vector<String>();
+		Vector<String> monthes = new Vector<>();
 		for (int i = 12; i >= 1; i--) {
 			monthes.add("" + i);
 		}
@@ -110,21 +107,58 @@ public class MainUI extends JFrame {
 		north.add(toMonth);
 		north.add(toListMonthes);
 
-		// Set bottom bar
-		JButton recalculate = new JButton("Recalculate");
 
+
+		// Set charts region
+		JPanel west = new JPanel();
+		west.setPreferredSize(new Dimension(800,600));
+		west.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+		west.setBackground(Color.gray);
+		//west.setLayout(new GridLayout(2, 0));
+		//create views and add to main panel
+		//createCharts(west);
+
+		//choose from a set of predefined visualizations
 		JLabel viewsLabel = new JLabel("Available Views: ");
-
-		Vector<String> viewsNames = new Vector<String>();
-		viewsNames.add("Pie Chart");
+		Vector<String> viewsNames = new Vector<>();
+		//viewsNames.add("Pie Chart");
 		viewsNames.add("Line Chart");
 		viewsNames.add("Bar Chart");
 		viewsNames.add("Scatter Chart");
-		viewsNames.add("Report");
-		JComboBox<String> viewsList = new JComboBox<String>(viewsNames);
-		JButton addView = new JButton("+");
-		JButton removeView = new JButton("-");
+		viewsNames.add("Time Series Chart");
+		//viewsNames.add("Report");
+		JComboBox<String> viewsList = new JComboBox<>(viewsNames);
+		JButton selectView = new JButton("select");
+		//JButton removeView = new JButton("-");
+		selectView.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//if the button is clicked, the following code will be executed
+				//getContentPane().remove(MainUI.this);
+				west.removeAll();
+				west.updateUI();
+				String view = (String) viewsList.getSelectedItem();
+				System.out.println(view);
+				if(view.equals("Line Chart")){
+					View line = new Line();
+					line.createChart(west);
+				}else if(view.equals("Bar Chart")){
+					View bar = new Bar();
+					bar.createChart(west);
+				}else if(view.equals("Time Series Chart")){
+					View t = new Time();
+					t.createChart(west);
+				}else if(view.equals("Scatter Chart")){
+					View s = new Scatter();
+					s.createChart(west);
+				}
 
+				//getContentPane().add(west, BorderLayout.WEST);
+				getContentPane().repaint();
+			}
+		});
+
+		JButton recalculate = new JButton("Recalculate");
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
 
 		Vector<String> methodsNames = new Vector<String>();
@@ -140,35 +174,32 @@ public class MainUI extends JFrame {
 		JPanel south = new JPanel();
 		south.add(viewsLabel);
 		south.add(viewsList);
-		south.add(addView);
-		south.add(removeView);
+		south.add(selectView);
+		//south.add(removeView);
 
 		south.add(methodLabel);
 		south.add(methodsList);
 		south.add(recalculate);
 
-		JPanel east = new JPanel();
+		//JPanel east = new JPanel();
 
-		// Set charts region
-		JPanel west = new JPanel();
-		west.setLayout(new GridLayout(2, 0));
-		createCharts(west);
+
 
 		getContentPane().add(north, BorderLayout.NORTH);
-		getContentPane().add(east, BorderLayout.EAST);
+		//getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(south, BorderLayout.SOUTH);
-		getContentPane().add(west, BorderLayout.WEST);
+		getContentPane().add(west, BorderLayout.CENTER);
 	}
 
-	private void createCharts(JPanel west) {
-		createLine(west);
-		createTimeSeries(west);
-		createBar(west);
-		//createPie(west);
-		createScatter(west);
-		createReport(west);
-
-	}
+//	private void createCharts(JPanel west) {
+//		createLine(west);
+//		createTimeSeries(west);
+//		createBar(west);
+//		//createPie(west);
+//		createScatter(west);
+//		createReport(west);
+//
+//	}
 
 	private void createReport(JPanel west) {
 		JTextArea report = new JTextArea();
@@ -194,40 +225,40 @@ public class MainUI extends JFrame {
 		west.add(outputScrollPane);
 	}
 
-	private void createScatter(JPanel west) {
-
-		Scatter s = new Scatter();
-		s.createChart(west);
-
-	}
-
-	private void createPie(JPanel west) {
-
-		Pie p = new Pie();
-		p.createPie(west);
-
-
-
-	}
-
-	private void createBar(JPanel west) {
-		Bar bar = new Bar();
-
-		bar.createChart(west);
-
-	}
-
-	private void createLine(JPanel west) {
-		Line l = new Line();
-		l.createChart(west);
-
-	}
-
-	private void createTimeSeries(JPanel west) {
-		Time t = new Time();
-		t.createChart(west);
-
-	}
+//	private void createScatter(JPanel west) {
+//
+//		Scatter s = new Scatter();
+//		s.createChart(west);
+//
+//	}
+//
+//	private void createPie(JPanel west) {
+//
+//		Pie p = new Pie();
+//		p.createPie(west);
+//
+//
+//
+//	}
+//
+//	private void createBar(JPanel west) {
+//		Bar bar = new Bar();
+//
+//		bar.createChart(west);
+//
+//	}
+//
+//	private void createLine(JPanel west) {
+//		Line l = new Line();
+//		l.createChart(west);
+//
+//	}
+//
+//	private void createTimeSeries(JPanel west) {
+//		Time t = new Time();
+//		t.createChart(west);
+//
+//	}
 
 
 

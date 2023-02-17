@@ -29,7 +29,7 @@ public abstract class View {
 
 		//dispaly bar on the main panel
 		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new Dimension(400, 300));
+		chartPanel.setPreferredSize(new Dimension(700, 500));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
 		west.add(chartPanel);
