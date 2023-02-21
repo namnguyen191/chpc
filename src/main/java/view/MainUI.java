@@ -7,16 +7,12 @@
 
 package view;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.beans.PropertyVetoException;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -44,6 +40,8 @@ import org.jfree.data.time.Year;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import static javax.swing.JLayeredPane.MODAL_LAYER;
+
 public class MainUI extends JFrame {
 	/**
 	 * 
@@ -65,7 +63,7 @@ public class MainUI extends JFrame {
 
 		// Set top bar
 		JLabel chooseCountryLabel = new JLabel("Choose a region: ");
-		Vector<String> countriesNames = new Vector<String>();
+		Vector<String> countriesNames = new Vector<>();
 		countriesNames.add("Canada");
 		countriesNames.add("Atlantic Region");
 		countriesNames.add("Quebec");
@@ -107,6 +105,10 @@ public class MainUI extends JFrame {
 		north.add(toMonth);
 		north.add(toListMonthes);
 
+		//set view menus
+
+		//add menu to main frame
+		setJMenuBar(createMenuBar());
 
 
 		// Set charts region
@@ -118,45 +120,8 @@ public class MainUI extends JFrame {
 		//create views and add to main panel
 		//createCharts(west);
 
-		//choose from a set of predefined visualizations
-		JLabel viewsLabel = new JLabel("Available Views: ");
-		Vector<String> viewsNames = new Vector<>();
-		//viewsNames.add("Pie Chart");
-		viewsNames.add("Line Chart");
-		viewsNames.add("Bar Chart");
-		viewsNames.add("Scatter Chart");
-		viewsNames.add("Time Series Chart");
-		//viewsNames.add("Report");
-		JComboBox<String> viewsList = new JComboBox<>(viewsNames);
-		JButton selectView = new JButton("select");
-		//JButton removeView = new JButton("-");
-		selectView.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//if the button is clicked, the following code will be executed
-				//getContentPane().remove(MainUI.this);
-				west.removeAll();
-				west.updateUI();
-				String view = (String) viewsList.getSelectedItem();
-				System.out.println(view);
-				if(view.equals("Line Chart")){
-					View line = new Line();
-					line.createChart(west);
-				}else if(view.equals("Bar Chart")){
-					View bar = new Bar();
-					bar.createChart(west);
-				}else if(view.equals("Time Series Chart")){
-					View t = new Time();
-					t.createChart(west);
-				}else if(view.equals("Scatter Chart")){
-					View s = new Scatter();
-					s.createChart(west);
-				}
 
-				//getContentPane().add(west, BorderLayout.WEST);
-				getContentPane().repaint();
-			}
-		});
+
 
 		JButton recalculate = new JButton("Recalculate");
 		JLabel methodLabel = new JLabel("        Choose analysis method: ");
@@ -172,10 +137,7 @@ public class MainUI extends JFrame {
 		JComboBox<String> methodsList = new JComboBox<String>(methodsNames);
 
 		JPanel south = new JPanel();
-		south.add(viewsLabel);
-		south.add(viewsList);
-		south.add(selectView);
-		//south.add(removeView);
+
 
 		south.add(methodLabel);
 		south.add(methodsList);
@@ -189,17 +151,10 @@ public class MainUI extends JFrame {
 		//getContentPane().add(east, BorderLayout.EAST);
 		getContentPane().add(south, BorderLayout.SOUTH);
 		getContentPane().add(west, BorderLayout.CENTER);
+		setVisible(true);
 	}
 
-//	private void createCharts(JPanel west) {
-//		createLine(west);
-//		createTimeSeries(west);
-//		createBar(west);
-//		//createPie(west);
-//		createScatter(west);
-//		createReport(west);
-//
-//	}
+
 
 	private void createReport(JPanel west) {
 		JTextArea report = new JTextArea();
@@ -225,41 +180,99 @@ public class MainUI extends JFrame {
 		west.add(outputScrollPane);
 	}
 
-//	private void createScatter(JPanel west) {
-//
-//		Scatter s = new Scatter();
-//		s.createChart(west);
-//
-//	}
-//
-//	private void createPie(JPanel west) {
-//
-//		Pie p = new Pie();
-//		p.createPie(west);
-//
-//
-//
-//	}
-//
-//	private void createBar(JPanel west) {
-//		Bar bar = new Bar();
-//
-//		bar.createChart(west);
-//
-//	}
-//
-//	private void createLine(JPanel west) {
-//		Line l = new Line();
-//		l.createChart(west);
-//
-//	}
-//
-//	private void createTimeSeries(JPanel west) {
-//		Time t = new Time();
-//		t.createChart(west);
-//
-//	}
+
+	private JInternalFrame createInternalFrame() {
+		// inner frame
+		JInternalFrame internalFrame = new JInternalFrame(
+				"Configure Window",  // title
+				true     // resizable
+
+		);
+
+		internalFrame.setSize(500, 400);
+		internalFrame.setLocation(50, 50);
+
+		JPanel panel = new JPanel();
+
+		panel.add(new JLabel("Label001"));
+		panel.add(new JButton("JButton001"));
+
+		internalFrame.setContentPane(panel);
+
+		/*
+		 * another way to set up panel
+		 *     internalFrame.setLayout(new FlowLayout());
+		 *     internalFrame.add(new JLabel("Label001"));
+		 *     internalFrame.add(new JButton("JButton001"));
+		 */
+
+		internalFrame.setVisible(true);
+
+		return internalFrame;
+	}
 
 
+	public JMenuBar createMenuBar(){
+		JMenuBar menuBar = new JMenuBar();
+		JMenu viewMenu = new JMenu("View");
+//		JMenuItem line = new JMenuItem("Line Chart");
+//		JMenuItem bar = new JMenuItem("Bar Chart");
+//		JMenuItem scatter = new JMenuItem("Scatter Chart");
+//		JMenuItem time = new JMenuItem("Time Series Chart");
 
+		JRadioButtonMenuItem line = new JRadioButtonMenuItem("Line Chart");
+		JRadioButtonMenuItem bar = new JRadioButtonMenuItem("Bar Chart");
+		JRadioButtonMenuItem scatter = new JRadioButtonMenuItem("Scatter Chart");
+		JRadioButtonMenuItem time = new JRadioButtonMenuItem("Time Series Chart");
+		//1.set radio option, then we can only choose one view at same time
+		ButtonGroup btnGroup = new ButtonGroup();
+		btnGroup.add(line);
+		btnGroup.add(bar);
+		btnGroup.add(scatter);
+		btnGroup.add(time);
+		//2.add all items to view menu
+		viewMenu.add(line);
+		viewMenu.add(bar);
+		viewMenu.add(scatter);
+		viewMenu.add(time);
+		//3.add menu to the bar
+		menuBar.add(viewMenu);
+
+		//4. add action for each items(views)
+		line.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				View l = Line.getInstance();
+				l.createChart();
+
+			}
+		});
+
+		bar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				View b = Bar.getInstance();
+				b.createChart( );
+			}
+		});
+
+		scatter.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				View s = Scatter.getInstance();
+				s.createChart();
+			}
+		});
+		time.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				View t = Time.getInstance();
+				t.createChart();
+			}
+		});
+		return menuBar;
+	}
 }

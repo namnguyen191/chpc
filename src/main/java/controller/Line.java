@@ -20,6 +20,18 @@ import java.util.List;
 
 public class Line extends View{
     XYSeriesCollection dataset;
+    private static Line instance;
+
+    private Line(){
+        createChart();
+    }
+
+    public static synchronized View getInstance(){
+        if(instance == null){
+            instance = new Line();
+        }
+        return instance;
+    }
 
     @Override
     public void addDataset(RegionData data) {

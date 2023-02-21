@@ -18,8 +18,19 @@ import java.awt.*;
 import java.util.List;
 
 public class Scatter extends View{
-
+    private static Scatter instance;
     TimeSeriesCollection dataset;
+
+    private Scatter(){
+        createChart();
+    }
+
+    public static synchronized View getInstance(){
+        if(instance == null){
+            instance = new Scatter();
+        }
+        return instance;
+    }
     public void addDataset(RegionData data) {
 
         //set series

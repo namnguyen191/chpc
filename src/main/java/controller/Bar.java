@@ -19,6 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bar extends View{
+    private static Bar instance;
+    private Bar(){
+        super("Bar Chart");
+        createChart();
+    }
+
+    public static synchronized View getInstance(){
+        if(instance == null){
+            instance = new Bar();
+        }
+        return instance;
+    }
 
     DefaultCategoryDataset dataset;
 
@@ -56,7 +68,6 @@ public class Bar extends View{
 
         return barChart;
     }
-
 
 
 

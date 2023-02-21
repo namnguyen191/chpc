@@ -19,6 +19,17 @@ import java.util.List;
 
 public class Time extends View{
     TimeSeriesCollection dataset;
+    private static Time instance;
+    private Time(){
+        createChart();
+    }
+
+    public static synchronized View getInstance(){
+        if(instance == null){
+            instance = new Time();
+        }
+        return instance;
+    }
     public void addDataset(RegionData data) {
 
         //set series
