@@ -1,54 +1,53 @@
 package controller;
 
-import model.RegionDAOImpl;
+import model.RegionDAO;
+import model.RegionDAOImplement;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import view.InnerWindow;
+import view.MainUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 
 public abstract class View extends JFrame{
-	public String type;
-	JPanel mainPanel;
+	public String chartType;
 
-	JButton confButton;
-
+	static RegionDAO data;
 
 
-	public View(){
-	};
+	public View() {
+		//go back to mainUI when close the view
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				super.windowClosing(e);
+				JFrame frame = MainUI.getInstance();
+				frame.setSize(900, 600);
+				frame.pack();
+				frame.setVisible(true);
+				System.out.println("closing");
+			}
+		});
+		data = RegionDAOImplement.getInstance();
 
-	public View(String s) {
-		super(s);
 	}
-	//static View instance;
 
-	//need to pass in Subject
-	//public void update(Subject s);
+	//step1 access data
+	public abstract void addDataset();
 
-	//void addDataset(RegionData data);
-	public abstract void addDataset(RegionData data);
-	/**
-	 * @return a  chart
-	 */
-	public abstract  JFreeChart plotView();
+	//step2 plot view
+	public abstract JFreeChart plotView();
 
-	/**
-	 * return a new frame
-	 */
+	//step3
 	public void createChart( ) {
-		//1.create a new frame
-		setVisible(true);
-		setSize(900,700);
+		//1.get data
+		addDataset();
 
 		//2.plot the view and add it to ChartPanel
-		addDataset(new RegionData(new RegionDAOImpl()));
 		JFreeChart chart = plotView();
-
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new Dimension(700, 500));
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -56,35 +55,31 @@ public abstract class View extends JFrame{
 
 
 
-		//4.create panel for store all component
-		mainPanel = new JPanel( );
-		mainPanel.setLayout(new BorderLayout());
 
-		//3.set config button
+		//3.add config button to main panel
 		JButton confiButton = new JButton("Configure");
 		confiButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				confiButton();
-
 			}
 		});
 
+
+		//4.create the main panel for store all component
+		JPanel mainPanel = new JPanel( );
+		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.LIGHT_GRAY);
 		mainPanel.add(chartPanel,BorderLayout.CENTER);
-
 		mainPanel.add(confiButton,BorderLayout.SOUTH);
+
+
+		//5. add main panel to View frame
+		setSize(900,700);
 		setContentPane(mainPanel);
 		setVisible(true);
 	}
 
-
-
-//	public void refreshWindow() {
-//		// refresh the content of the main frame
-//		// e.g. update a table, reload data from database, etc.
-//	}
 
 	public void confiButton(){
 		JDesktopPane desktopPane = new JDesktopPane();
@@ -94,5 +89,8 @@ public abstract class View extends JFrame{
 
 		setVisible(true);
 	}
+
+
+
 }
 

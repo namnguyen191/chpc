@@ -3,6 +3,7 @@ package view;
 import controller.Bar;
 import controller.Line;
 import controller.View;
+import controller.ViewFactory;
 import javafx.scene.Parent;
 
 import javax.swing.*;
@@ -13,17 +14,19 @@ import java.awt.event.*;
 import java.util.Vector;
 
 import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import static com.sun.java.accessibility.util.SwingEventMonitor.addInternalFrameListener;
 
 public class InnerWindow {
 
     private static JInternalFrame innerWindow;
-    private JButton button1;
-    private JButton button2;
+//    private JButton button1;
+//    private JButton button2;
     private View parent;
 
     public InnerWindow(View parent) {
         this.parent = parent;
+        //set up internal frame
         innerWindow = new JInternalFrame(
                 "configure window",  // title
                 true,       // resizable
@@ -34,59 +37,31 @@ public class InnerWindow {
 
 
 
-        innerWindow.setSize(500, 400);
-        innerWindow.setLocation(50, 50);
-
         JPanel panel = new JPanel();
 
-        JButton button1 = new JButton("Cancel");
-        JButton button2 = new JButton("Load Data");
-        button1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // handle button 1 click
-                //mainPanel.updateUI();
-                cancel();
+//        JButton button1 = new JButton("Cancel");
+//        JButton button2 = new JButton("Load Data");
 
-            }
-        });
-        button2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // handle button 2 click
-            }
-        });
-        panel.add(new DataSelectPanel().getSelectPanel(),BorderLayout.CENTER);
-        panel.add(button1);
-        panel.add(button2);
+        //add  data info panel to main panel
+        panel.add(new DataSelectPanel(parent).getSelectPanel(),BorderLayout.CENTER);
+       // panel.add(button1);
+//        panel.add(button2);
 
-//        Box vBox = Box.createVerticalBox();
-//        vBox.add(panel01);
-//        vBox.add(panel02);
-//        vBox.add(panel03);
+
 
         innerWindow.setContentPane(panel);
-        //innerWindow.pack();
-
-        /*
-         * another way to set up panel
-         *     internalFrame.setLayout(new FlowLayout());
-         *     internalFrame.add(new JLabel("Label001"));
-         *     internalFrame.add(new JButton("JButton001"));
-         */
-
+        innerWindow.setSize(500, 400);
+        innerWindow.setLocation(50, 50);
         innerWindow.setVisible(true);
 
-        addInternalFrameListener(new InternalFrameAdapter() {
+
+        innerWindow.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosing(InternalFrameEvent e) {
-                //parent.repaint();
-                //mainPanel.updateUI();
-                //View.super.repaint();
-                //parent = Bar.getInstance();
-                innerWindow.dispose();
+                ViewFactory.createView(parent.chartType);
+                //when refresh view frame, the inner window will disappear automatically
 
             }
         });
-
-
 
     }
 
@@ -94,18 +69,5 @@ public class InnerWindow {
         return innerWindow;
     }
 
-    public void loadData(){
-
-    }
-
-    public void cancel(){
-        if(parent.type.equals("Bar")){
-            View b = Bar.getInstance();
-            b.createChart( );
-        }else if(parent.type.equals("Line")){
-            View l = Line.getInstance();
-            l.createChart();
-        }
-    }
 
 }

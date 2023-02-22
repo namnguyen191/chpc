@@ -1,19 +1,36 @@
 package view;
 
+import controller.View;
+import controller.ViewFactory;
+import model.RegionDAO;
+import model.RegionDAOImplement;
+
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
+
 public class DataSelectPanel {
     static Box selectData;
+    private View parent;
+
+
 
     public DataSelectPanel(){
         selectData = Box.createVerticalBox();
+        setBox();
         //selectData.setLayout(new FlowLayout());
-        //selectData.setSize(500, 400);
 
+    }
+    public DataSelectPanel(View parent){
+        selectData = Box.createVerticalBox();
+        this.parent = parent;
+        setBox();
+    }
+
+    public void setBox(){
         JPanel selectRegion = new JPanel();
         JTextField region = new JTextField(10);
         //textField.getText()
@@ -71,6 +88,17 @@ public class DataSelectPanel {
                     end = to_year +"-"+to_month;
                 }
 
+                RegionDAO dao = RegionDAOImplement.getInstance();
+                dao.loadData(area,from,end);
+                ViewFactory.createView("Bar");
+//                if(parent.type.equals("Bar")){
+//                    View b = Bar.getInstance();
+//                    b.createChart(area,from,end );
+//                }else if(parent.type.equals("Line")){
+//                    View l = Line.getInstance();
+//                    l.createChart(area,from,end );
+//                }
+                parent.dispose();
 
                 System.out.printf("region: %s + from: %s to %s",area,from,end);
 
@@ -84,8 +112,12 @@ public class DataSelectPanel {
         selectData.add(loadData);
     }
 
+
     public Box getSelectPanel(){
         return selectData;
     }
+
+
+
 
 }

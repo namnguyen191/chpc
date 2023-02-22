@@ -61,10 +61,10 @@ public class MainUI extends JFrame {
 		// Set window title
 		super("House Price Statistics");
 		//region selection
-		JTextField region = new JTextField(8);
-		//textField.getText()
-		// Set top bar
-		JLabel chooseCountryLabel = new JLabel("Choose a region: ");
+//		JTextField region = new JTextField(8);
+//		//textField.getText()
+//		// Set top bar
+//		JLabel chooseCountryLabel = new JLabel("Choose a region: ");
 //		Vector<String> countriesNames = new Vector<>();
 //		countriesNames.add("Canada");
 //		countriesNames.add("Atlantic Region");
@@ -75,65 +75,66 @@ public class MainUI extends JFrame {
 //		countriesNames.sort(null);
 //		JComboBox<String> countriesList = new JComboBox<>(countriesNames);
 
-		JLabel fromYear = new JLabel("From");
-		JLabel toYear = new JLabel("To");
-		Vector<String> years = new Vector<>();
-		for (int i = 2022; i >= 1981; i--) {
-			years.add("" + i);
-		}
-		JComboBox<String> fromList = new JComboBox<>(years);
-		JComboBox<String> toList = new JComboBox<>(years);
-		//add month
-		JLabel fromMonth = new JLabel();
-		JLabel toMonth = new JLabel();
-		Vector<String> monthes = new Vector<>();
-		for (int i = 12; i >= 1; i--) {
-			monthes.add("" + i);
-		}
-		JComboBox<String> fromListMonthes = new JComboBox<String>(monthes);
-		JComboBox<String> toListMonthes = new JComboBox<String>(monthes);
-
-		JButton loadData = new JButton("Load Data");
-		loadData.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String area = region.getText();
-				String from_month = (String) fromListMonthes.getSelectedItem();
-				String to_month = (String) toListMonthes.getSelectedItem();
-				String from_year = (String) fromList.getSelectedItem();
-				String to_year = (String) toList.getSelectedItem();
-				String from = "";
-				if(from_month.length() == 1){
-					from = from_year +"-0"+from_month;
-				}else {
-					 from = from_year +"-"+from_month;
-				}
-				String end;
-				if(to_month.length() == 1){
-					 end = to_year +"-0"+to_month;
-				}else {
-					 end = to_year +"-"+to_month;
-				}
-
-
-				System.out.printf("region: %s + from: %s to %s",area,from,end);
-
-			}
-		});
+//		JLabel fromYear = new JLabel("From");
+//		JLabel toYear = new JLabel("To");
+//		Vector<String> years = new Vector<>();
+//		for (int i = 2022; i >= 1981; i--) {
+//			years.add("" + i);
+//		}
+//		JComboBox<String> fromList = new JComboBox<>(years);
+//		JComboBox<String> toList = new JComboBox<>(years);
+//		//add month
+//		JLabel fromMonth = new JLabel();
+//		JLabel toMonth = new JLabel();
+//		Vector<String> monthes = new Vector<>();
+//		for (int i = 12; i >= 1; i--) {
+//			monthes.add("" + i);
+//		}
+//		JComboBox<String> fromListMonthes = new JComboBox<String>(monthes);
+//		JComboBox<String> toListMonthes = new JComboBox<String>(monthes);
+//
+//		JButton loadData = new JButton("Load Data");
+//		loadData.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				String area = region.getText();
+//				String from_month = (String) fromListMonthes.getSelectedItem();
+//				String to_month = (String) toListMonthes.getSelectedItem();
+//				String from_year = (String) fromList.getSelectedItem();
+//				String to_year = (String) toList.getSelectedItem();
+//				String from = "";
+//				if(from_month.length() == 1){
+//					from = from_year +"-0"+from_month;
+//				}else {
+//					 from = from_year +"-"+from_month;
+//				}
+//				String end;
+//				if(to_month.length() == 1){
+//					 end = to_year +"-0"+to_month;
+//				}else {
+//					 end = to_year +"-"+to_month;
+//				}
+//
+//
+//				System.out.printf("region: %s + from: %s to %s",area,from,end);
+//
+//			}
+//		});
 		JPanel north = new JPanel();
-		north.add(chooseCountryLabel);
-		//north.add(countriesList);
-		north.add(region);
-		north.add(fromYear);
-		north.add(fromList);
-		//add month to label
-		north.add(fromMonth);
-		north.add(fromListMonthes);
-		north.add(toYear);
-		north.add(toList);
-		north.add(toMonth);
-		north.add(toListMonthes);
-		north.add(loadData);
+//		north.add(chooseCountryLabel);
+//		//north.add(countriesList);
+//		north.add(region);
+//		north.add(fromYear);
+//		north.add(fromList);
+//		//add month to label
+//		north.add(fromMonth);
+//		north.add(fromListMonthes);
+//		north.add(toYear);
+//		north.add(toList);
+//		north.add(toMonth);
+//		north.add(toListMonthes);
+//		north.add(loadData);
+		north.add(new DataSelectPanel().getSelectPanel());
 
 
 		//set view menus
@@ -273,9 +274,9 @@ public class MainUI extends JFrame {
 		line.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				View l = Line.getInstance();
-				l.createChart();
-
+				//openView();
+				ViewFactory.createView("Line");
+				dispose();
 			}
 		});
 
@@ -283,8 +284,10 @@ public class MainUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				View b = Bar.getInstance();
-				b.createChart( );
+				ViewFactory.createView("Bar");
+				dispose();
+
+
 			}
 		});
 
@@ -292,18 +295,20 @@ public class MainUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				View s = Scatter.getInstance();
-				s.createChart();
+				ViewFactory.createView("Scatter");
+				dispose();
 			}
 		});
 		time.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				View t = Time.getInstance();
-				t.createChart();
+				ViewFactory.createView("Time");
+				dispose();
 			}
 		});
+
 		return menuBar;
 	}
+
 }

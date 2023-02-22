@@ -1,5 +1,9 @@
 package view;
 
+import controller.Bar;
+import controller.View;
+import controller.ViewFactory;
+
 import javax.swing.*;
 
 public class MainPage {
@@ -10,5 +14,7 @@ public class MainPage {
         frame.setSize(900, 600);
         frame.pack();
         frame.setVisible(true);
+
+        //JFrame view = ViewFactory.createView("Bar");
     }
 }
