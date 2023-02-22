@@ -1,5 +1,8 @@
-package controller;
+package view;
 
+import controller.Bar;
+import controller.Line;
+import controller.View;
 import javafx.scene.Parent;
 
 import javax.swing.*;
@@ -7,6 +10,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Vector;
 
 import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
 import static com.sun.java.accessibility.util.SwingEventMonitor.addInternalFrameListener;
@@ -29,6 +33,7 @@ public class InnerWindow {
         );
 
 
+
         innerWindow.setSize(500, 400);
         innerWindow.setLocation(50, 50);
 
@@ -40,7 +45,8 @@ public class InnerWindow {
             public void actionPerformed(ActionEvent e) {
                 // handle button 1 click
                 //mainPanel.updateUI();
-                innerWindow.dispose();
+                cancel();
+
             }
         });
         button2.addActionListener(new ActionListener() {
@@ -48,10 +54,17 @@ public class InnerWindow {
                 // handle button 2 click
             }
         });
+        panel.add(new DataSelectPanel().getSelectPanel(),BorderLayout.CENTER);
         panel.add(button1);
         panel.add(button2);
 
+//        Box vBox = Box.createVerticalBox();
+//        vBox.add(panel01);
+//        vBox.add(panel02);
+//        vBox.add(panel03);
+
         innerWindow.setContentPane(panel);
+        //innerWindow.pack();
 
         /*
          * another way to set up panel
@@ -81,6 +94,18 @@ public class InnerWindow {
         return innerWindow;
     }
 
+    public void loadData(){
 
+    }
+
+    public void cancel(){
+        if(parent.type.equals("Bar")){
+            View b = Bar.getInstance();
+            b.createChart( );
+        }else if(parent.type.equals("Line")){
+            View l = Line.getInstance();
+            l.createChart();
+        }
+    }
 
 }

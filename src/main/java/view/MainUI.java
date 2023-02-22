@@ -60,18 +60,20 @@ public class MainUI extends JFrame {
 	private MainUI() {
 		// Set window title
 		super("House Price Statistics");
-
+		//region selection
+		JTextField region = new JTextField(8);
+		//textField.getText()
 		// Set top bar
 		JLabel chooseCountryLabel = new JLabel("Choose a region: ");
-		Vector<String> countriesNames = new Vector<>();
-		countriesNames.add("Canada");
-		countriesNames.add("Atlantic Region");
-		countriesNames.add("Quebec");
-		countriesNames.add("Ontario");
-		countriesNames.add("Prairie Region");
-		countriesNames.add("British Columbia");
-		countriesNames.sort(null);
-		JComboBox<String> countriesList = new JComboBox<>(countriesNames);
+//		Vector<String> countriesNames = new Vector<>();
+//		countriesNames.add("Canada");
+//		countriesNames.add("Atlantic Region");
+//		countriesNames.add("Quebec");
+//		countriesNames.add("Ontario");
+//		countriesNames.add("Prairie Region");
+//		countriesNames.add("British Columbia");
+//		countriesNames.sort(null);
+//		JComboBox<String> countriesList = new JComboBox<>(countriesNames);
 
 		JLabel fromYear = new JLabel("From");
 		JLabel toYear = new JLabel("To");
@@ -91,9 +93,37 @@ public class MainUI extends JFrame {
 		JComboBox<String> fromListMonthes = new JComboBox<String>(monthes);
 		JComboBox<String> toListMonthes = new JComboBox<String>(monthes);
 
+		JButton loadData = new JButton("Load Data");
+		loadData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String area = region.getText();
+				String from_month = (String) fromListMonthes.getSelectedItem();
+				String to_month = (String) toListMonthes.getSelectedItem();
+				String from_year = (String) fromList.getSelectedItem();
+				String to_year = (String) toList.getSelectedItem();
+				String from = "";
+				if(from_month.length() == 1){
+					from = from_year +"-0"+from_month;
+				}else {
+					 from = from_year +"-"+from_month;
+				}
+				String end;
+				if(to_month.length() == 1){
+					 end = to_year +"-0"+to_month;
+				}else {
+					 end = to_year +"-"+to_month;
+				}
+
+
+				System.out.printf("region: %s + from: %s to %s",area,from,end);
+
+			}
+		});
 		JPanel north = new JPanel();
 		north.add(chooseCountryLabel);
-		north.add(countriesList);
+		//north.add(countriesList);
+		north.add(region);
 		north.add(fromYear);
 		north.add(fromList);
 		//add month to label
@@ -101,9 +131,10 @@ public class MainUI extends JFrame {
 		north.add(fromListMonthes);
 		north.add(toYear);
 		north.add(toList);
-		
 		north.add(toMonth);
 		north.add(toListMonthes);
+		north.add(loadData);
+
 
 		//set view menus
 

@@ -6,8 +6,10 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -16,13 +18,19 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class Line extends View{
-    XYSeriesCollection dataset;
+    DefaultCategoryDataset dataset;
+    //XYSeriesCollection dataset;
     private static Line instance;
 
     private Line(){
+        super("Line Chart");
+        type="Line";
         createChart();
     }
 
@@ -35,47 +43,62 @@ public class Line extends View{
 
     @Override
     public void addDataset(RegionData data) {
-
-        //set series
-        XYSeries series1 = new XYSeries("Toronto");
-        XYSeries series2 = new XYSeries("North York");
+//        dataset = new XYSeriesCollection();
+//        ArrayList<XYSeries> allSeries = new ArrayList<>();
+//
+//        //set series
+//        HashMap<String,List<Region>> regions= data.getSortedData();
+//        Set<String> keys = regions.keySet();
+//        int i = 0;
+//        for (String name:keys){
+//            allSeries.add(new XYSeries(name));
+//            ArrayList<Region> sameRegion = (ArrayList<Region>) regions.get(name);
+//            for(Region r : sameRegion){
+//                String date = r.getPeriod();
+////                System.out.println("string: "+date.substring(0,4) +" "+date.substring(5) + " "+r.getNHPI());
+////                System.out.println("year "+Double.parseDouble(date.substring(0,4)));
+////                System.out.println("month "+Double.parseDouble(date.substring(5))/100);
+//                Double time = Double.parseDouble(date.substring(0,4))*100 + Double.parseDouble(date.substring(5));
+//                System.out.println("time: "+time);
+//                //allSeries.get(i).add(time, r.getNHPI());
+//                allSeries.get(i).add(time,r.getNHPI());
+//            }
+//            dataset.addSeries(allSeries.get(i));
+//            i++;
+//        }
+//        System.out.println(allSeries);
+        dataset = new DefaultCategoryDataset();
         List<Region> regions = data.getData();
         for(Region r : regions){
-            if(r.getRegionName().equals("Toronto")){
-                series1.add(Double.parseDouble(r.getPeriod()),r.getNHPI());
-            }else {
-                series2.add(Double.parseDouble(r.getPeriod()),r.getNHPI());
-
-            }
+            dataset.setValue(r.getNHPI(),r.getRegionName(),r.getPeriod());
         }
 
-        XYSeries series3 = new XYSeries("city3");
-        series3.add(2018, 2.92);
-        series3.add(2017, 2.87);
-        series3.add(2016, 2.77);
-        series3.add(2015, 2.8);
-        series3.add(2014, 2.83);
-        series3.add(2013, 2.89);
-        series3.add(2012, 2.93);
-        series3.add(2011, 2.97);
-        series3.add(2010, 3.05);
 
-        dataset = new XYSeriesCollection();
-        dataset.addSeries(series1);
-        dataset.addSeries(series2);
-        dataset.addSeries(series3);
+
+
     }
 
 
 
     @Override
     public JFreeChart plotView() {
-        JFreeChart chart = ChartFactory.createXYLineChart("New housing price index (NHPI)", "Year", "", dataset,
-                PlotOrientation.VERTICAL, true, true, false);
+//        JFreeChart chart = ChartFactory.createXYLineChart("New housing price index (NHPI)", "Year-Month", "NHPI", dataset,
+//                PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createLineChart("New housing price index (NHPI)",
+                "Year-Month", // 目录轴的显示标签
+                "NHPI", // 数值轴的显示标签
+                dataset, // 数据集
+                PlotOrientation.VERTICAL, // 图表方向：水平、垂直
+                true, // 是否显示图例(对于简单的柱状图必须是false)
+                true, // 是否生成工具
+                false // 是否生成URL链接
+        );
 
-        XYPlot plot = chart.getXYPlot();
 
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        //XYPlot plot = chart.getXYPlot();
+        CategoryPlot plot = chart.getCategoryPlot();
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+        //XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         //not sure how many series we have
         renderer.setSeriesPaint(0, Color.GREEN);
         renderer.setSeriesStroke(0, new BasicStroke(2.0f));

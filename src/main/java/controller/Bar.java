@@ -19,9 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bar extends View{
+    DefaultCategoryDataset dataset;
     private static Bar instance;
     private Bar(){
         super("Bar Chart");
+        type = "Bar";
         createChart();
     }
 
@@ -32,7 +34,7 @@ public class Bar extends View{
         return instance;
     }
 
-    DefaultCategoryDataset dataset;
+
 
     public void addDataset(RegionData data) {
         //RegionData data = new RegionData(new RegionDAOImpl());
