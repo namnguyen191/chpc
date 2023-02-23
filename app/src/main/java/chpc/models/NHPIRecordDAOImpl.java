@@ -97,9 +97,9 @@ public class NHPIRecordDAOImpl implements NHPIRecordDAO {
   @Override
   public void resetAndSeed() throws SQLException {
     this.dropNHPIRecordsTable(this.conn);
-    this.createNHPIRecordsTable(conn);
+    this.createNHPIRecordsTable(this.conn);
     List<NHPIRecord> records = this.readNHPIRecordFromCSV("18100205.csv");
-    this.insertDataIntoNHPIRecordsTable(conn, records);
+    this.insertDataIntoNHPIRecordsTable(this.conn, records);
   }
 
   private List<NHPIRecord> readNHPIRecordFromCSV(String fileName) {

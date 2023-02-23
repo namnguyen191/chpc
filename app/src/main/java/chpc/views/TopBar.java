@@ -8,24 +8,26 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import chpc.controllers.AddPanelCommand;
+import chpc.controllers.DataStore;
 import chpc.controllers.NHPITable;
 import chpc.models.Db;
+import chpc.models.NHPIRecordDAO;
 import chpc.models.NHPIRecordDAOImpl;
 
 public class TopBar extends JPanel {
-  private NHPIRecordDAOImpl recordDAO;
+  private NHPIRecordDAO recordDAO;
   private MainUI mainUI;
   private JComboBox<String> countriesComboBox;
   private JComboBox<Integer> fromYearComboBox;
   private JComboBox<Integer> fromMonthComboBox;
   private JComboBox<Integer> toYearComboBox;
   private JComboBox<Integer> toMonthComboBox;
+  private DataStore dataStore;
 
   public TopBar(MainUI mainUI, int minYear, int maxYear, Vector<String> availableGeos) {
     this.recordDAO = new NHPIRecordDAOImpl(Db.getConnection());
+    this.dataStore = DataStore.getInstance();
     this.mainUI = mainUI;
 
     // Countries ComboBox
@@ -77,9 +79,11 @@ public class TopBar extends JPanel {
     int toMonth = (int) this.toMonthComboBox.getSelectedItem();
     try {
       var records = this.recordDAO.getRecordsByGeoAndDateRange(geo, fromYear, fromMonth, toYear, toMonth);
-      var table = new NHPITable(records);
-      JScrollPane sp = new JScrollPane(table);
-      new AddPanelCommand(mainUI, sp).execute();
+      this.dataStore.loadData(records);
+      String tableTitle = "Data for " + geo + " from " + fromYear + "-" + fromMonth + " to " + toYear + "-" + toMonth;
+
+      var table = new NHPITable(records, tableTitle);
+      new AddPanelCommand(mainUI, table).execute();
     } catch (SQLException e1) {
       System.out.println("Something went wrong fetching data: " + e1.getMessage());
     }

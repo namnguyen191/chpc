@@ -32,6 +32,21 @@ public class NHPIRecord {
         '}';
   }
 
+  @Override
+  public boolean equals(Object o) {
+    // self check
+    if (this == o)
+      return true;
+    // null check
+    if (o == null)
+      return false;
+    // type check and cast
+    if (getClass() != o.getClass())
+      return false;
+
+    return this.toString().equals(o.toString());
+  }
+
   public static void main(String[] args) {
     var nhpiRecord = new NHPIRecord("Canada", "1998-01", 29.8);
     System.out.println(nhpiRecord);

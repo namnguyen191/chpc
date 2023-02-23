@@ -3,13 +3,20 @@ package chpc.controllers;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import chpc.models.NHPIRecord;
 
-public class NHPITable extends JTable {
-  public NHPITable(List<NHPIRecord> records) {
+public class NHPITable extends JPanel {
+  public NHPITable(List<NHPIRecord> records, String title) {
+    JTable table = new JTable();
+
     var tableModel = new DefaultTableModel();
 
     String[] columnNames = { "Geo", "Date", "Value" };
@@ -22,6 +29,10 @@ public class NHPITable extends JTable {
       tableModel.addRow(row);
     }
 
-    this.setModel(tableModel);
+    table.setModel(tableModel);
+
+    this.setBorder(BorderFactory.createTitledBorder(
+        BorderFactory.createTitledBorder(title)));
+    this.add(new JScrollPane(table));
   }
 }

@@ -7,11 +7,12 @@ import java.util.Vector;
 import javax.swing.*;
 
 import chpc.models.Db;
+import chpc.models.NHPIRecordDAO;
 import chpc.models.NHPIRecordDAOImpl;
 
 public class MainUI extends JFrame {
   private static MainUI instance;
-  private NHPIRecordDAOImpl nhpiDAO;
+  private NHPIRecordDAO nhpiDAO;
   public JPanel mainContentPanel;
 
   public static MainUI getInstance() {
@@ -43,6 +44,9 @@ public class MainUI extends JFrame {
     var scrlpane = new JScrollPane(this.mainContentPanel);
     this.mainContentPanel.setLayout(new GridLayout(2, 0));
     this.add(scrlpane, BorderLayout.CENTER);
+
+    // Set Menu
+    this.setJMenuBar(new Menu());
 
     // Set size, visibility and terminate app on close
     this.setSize(1600, 900);
