@@ -3,12 +3,20 @@
  */
 package chpc;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.Properties;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-    }
+import chpc.models.Db;
+import chpc.views.MainUI;
+
+public class App {
+  public static void main(String[] args) {
+    String uri = "jdbc:postgresql://localhost:5432/nhpi";
+    Properties props = new Properties();
+    props.setProperty("user", "admin");
+    props.setProperty("password", "admin");
+    props.setProperty("ssl", "false");
+    Db.initializeDb(uri, props);
+
+    MainUI.getInstance();
+  }
 }
