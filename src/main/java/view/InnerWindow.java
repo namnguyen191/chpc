@@ -4,7 +4,7 @@ import controller.Bar;
 import controller.Line;
 import controller.View;
 import controller.ViewFactory;
-import javafx.scene.Parent;
+
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
@@ -13,9 +13,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
 
-import static com.sun.deploy.uitoolkit.ToolkitStore.dispose;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import static com.sun.java.accessibility.util.SwingEventMonitor.addInternalFrameListener;
 
 public class InnerWindow {
 
