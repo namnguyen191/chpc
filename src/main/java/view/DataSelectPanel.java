@@ -87,10 +87,16 @@ public class DataSelectPanel {
                 }else {
                     end = to_year +"-"+to_month;
                 }
+                System.out.printf("region: %s + from: %s to %s",area,from,end);
 
                 RegionDAO dao = RegionDAOImplement.getInstance();
                 dao.loadData(area,from,end);
-                ViewFactory.createView("Bar");
+
+                if(parent != null){
+                    ViewFactory.createView(parent.chartType);
+                    parent.dispose();
+                }
+
 //                if(parent.type.equals("Bar")){
 //                    View b = Bar.getInstance();
 //                    b.createChart(area,from,end );
@@ -98,9 +104,8 @@ public class DataSelectPanel {
 //                    View l = Line.getInstance();
 //                    l.createChart(area,from,end );
 //                }
-                parent.dispose();
 
-                System.out.printf("region: %s + from: %s to %s",area,from,end);
+
 
             }
         });

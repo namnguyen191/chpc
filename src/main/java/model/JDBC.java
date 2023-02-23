@@ -11,8 +11,7 @@ public class JDBC {
     private static final String connectionString = "jdbc:mysql://localhost:3306/housing?useSSL=false&serverTimezone=UTC";
     private static Connection connection;
 
-    public JDBC(){
-    }
+
     public  List<Region> getRegions(String regionName,String from,String end){
         List<Region> regions= new ArrayList<>();
         try{
