@@ -7,7 +7,6 @@ import javax.swing.JRadioButtonMenuItem;
 
 import com.google.common.collect.ImmutableMap;
 
-import chpc.controllers.View;
 import chpc.controllers.ViewFactory;
 
 public class Menu extends JMenuBar {

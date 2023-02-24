@@ -1,12 +1,9 @@
-package chpc.controllers;
+package chpc.models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import chpc.models.NHPIRecord;
 
 public class DataStore {
   private static DataStore instance;

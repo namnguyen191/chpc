@@ -1,9 +1,8 @@
-package chpc.controllers;
+package chpc.views;
 
+import chpc.models.DataStore;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-
-import chpc.views.InnerWindow;
 
 import javax.swing.*;
 import java.awt.*;

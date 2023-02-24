@@ -1,5 +1,6 @@
-package chpc.controllers;
+package chpc.views;
 
+import chpc.views.View;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
