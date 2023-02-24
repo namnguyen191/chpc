@@ -13,6 +13,12 @@ This is an application that helps the user find the most affordable (in relative
 - Nam Vu Hoang Nguyen - 217162082
 - Xinyi Pang - 218616003
 
+### Deliverable 1 Demo:
+
+
+https://user-images.githubusercontent.com/38139823/221022929-3152eff5-c1e9-4b22-a5e5-46035dd41e81.mp4
+
+
 ### For developing:
 
 #### Running a Postgres DB on local using Docker:
