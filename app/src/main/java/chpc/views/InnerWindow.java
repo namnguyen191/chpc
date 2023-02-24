@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import chpc.controllers.View;
 import chpc.controllers.ViewFactory;
 
 import java.awt.*;

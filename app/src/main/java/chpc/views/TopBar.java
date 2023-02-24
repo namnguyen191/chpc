@@ -9,7 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import chpc.controllers.AddPanelCommand;
-import chpc.controllers.DataStore;
+import chpc.models.DataStore;
 import chpc.controllers.NHPITable;
 import chpc.models.Db;
 import chpc.models.NHPIRecordDAO;

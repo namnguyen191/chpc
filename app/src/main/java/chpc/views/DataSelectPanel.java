@@ -2,8 +2,7 @@ package chpc.views;
 
 import javax.swing.*;
 
-import chpc.controllers.DataStore;
-import chpc.controllers.View;
+import chpc.models.DataStore;
 import chpc.controllers.ViewFactory;
 import chpc.models.Db;
 import chpc.models.NHPIRecord;

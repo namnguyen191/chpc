@@ -1,5 +1,7 @@
 package chpc.controllers;
 
+import chpc.views.*;
+
 public class ViewFactory {
   public static View createView(String viewType) {
     View view = null;
