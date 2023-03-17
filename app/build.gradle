@@ -45,3 +45,8 @@ tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+task javadocs(type: Javadoc) {
+  source = sourceSets.main.allJava
+	classpath = sourceSets.main.runtimeClasspath
+}
