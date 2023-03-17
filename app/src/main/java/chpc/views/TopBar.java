@@ -2,6 +2,7 @@ package chpc.views;
 
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -12,8 +13,13 @@ import chpc.controllers.AddPanelCommand;
 import chpc.models.DataStore;
 import chpc.controllers.NHPITable;
 import chpc.models.Db;
+import chpc.models.NHPIRecord;
 import chpc.models.NHPIRecordDAO;
 import chpc.models.NHPIRecordDAOImpl;
+import chpc.weka.InstancesFactory;
+import chpc.weka.ModelEvaluator;
+import chpc.weka.ModelTrainer;
+import weka.core.Instances;
 
 public class TopBar extends JPanel {
   private NHPIRecordDAO recordDAO;
@@ -67,6 +73,10 @@ public class TopBar extends JPanel {
     loadDataBtn.addActionListener(e -> this.onLoadDataClick());
     this.add(loadDataBtn);
 
+    JButton predictModelBtn = new JButton("Predict Model");
+    predictModelBtn.addActionListener(e -> this.onPredictModelClick());
+    this.add(predictModelBtn);
+
     // Set background to gray
     this.setBackground(Color.GRAY);
   }
@@ -85,6 +95,26 @@ public class TopBar extends JPanel {
       var table = new NHPITable(records, tableTitle);
       new AddPanelCommand(mainUI, table).execute();
     } catch (SQLException e1) {
+      System.out.println("Something went wrong fetching data: " + e1.getMessage());
+    }
+  }
+
+  private void onPredictModelClick(){
+    String geo = (String) this.countriesComboBox.getSelectedItem();
+    int fromYear = (int) this.fromYearComboBox.getSelectedItem();
+    int fromMonth = (int) this.fromMonthComboBox.getSelectedItem();
+    int toYear = (int) this.toYearComboBox.getSelectedItem();
+    int toMonth = (int) this.toMonthComboBox.getSelectedItem();
+    try {
+      List<NHPIRecord> records = this.recordDAO.getRecordsByGeoAndDateRange(geo, fromYear, fromMonth, toYear, toMonth);
+      InstancesFactory instancesFactory = new InstancesFactory();
+      Instances data = instancesFactory.createInstances(records);
+      ModelTrainer mTrainer = new ModelTrainer();
+      mTrainer.buildModel(data);
+      //ModelEvaluator mEvaluator = new ModelEvaluator();
+      //mEvaluator.evaluate(mTrainer.getModel(), data);
+      mTrainer.getNext(data);
+    } catch(SQLException e1){
       System.out.println("Something went wrong fetching data: " + e1.getMessage());
     }
   }

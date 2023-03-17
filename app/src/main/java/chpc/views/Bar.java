@@ -12,6 +12,7 @@ import chpc.models.NHPIRecord;
 
 import java.awt.*;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Bar extends View {
   DefaultCategoryDataset dataset;
