@@ -1,4 +1,4 @@
-package chpc.controllers;
+package chpc.database;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -7,11 +7,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import chpc.models.NHPIRecord;
+import chpc.dataLoader.NHPIRecord;
 
 public class NHPITable extends JPanel {
   public NHPITable(List<NHPIRecord> records, String title) {

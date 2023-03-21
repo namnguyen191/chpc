@@ -1,6 +1,5 @@
-package chpc.views;
+package chpc.visualizations;
 
-import chpc.views.View;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -8,7 +7,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-import chpc.models.NHPIRecord;
+import chpc.dataLoader.NHPIRecord;
 
 import java.awt.*;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package chpc.models;
+package chpc.dataLoader;
 
 import java.sql.SQLException;
 import java.util.List;

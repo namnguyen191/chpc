@@ -1,21 +1,24 @@
-package chpc.views;
+package chpc.visualizations;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import chpc.controllers.ViewFactory;
-
 import java.awt.*;
 
-public class InnerWindow {
+public class ConfigWindow {
 
   private static JInternalFrame innerWindow;
   // private JButton button1;
   // private JButton button2;
   private View parent;
 
-  public InnerWindow(View parent) {
+
+  /**\
+   *
+   * @param parent it specifys the parent window of the inner window
+   */
+  public ConfigWindow(View parent) {
     this.parent = parent;
     // set up internal frame
     innerWindow = new JInternalFrame(
@@ -28,13 +31,10 @@ public class InnerWindow {
 
     JPanel panel = new JPanel();
 
-    // JButton button1 = new JButton("Cancel");
-    // JButton button2 = new JButton("Load Data");
+    //create a box
 
     // add data info panel to main panel
     panel.add(new DataSelectPanel(parent).getSelectPanel(), BorderLayout.CENTER);
-    // panel.add(button1);
-    // panel.add(button2);
 
     innerWindow.setContentPane(panel);
     innerWindow.setSize(500, 400);

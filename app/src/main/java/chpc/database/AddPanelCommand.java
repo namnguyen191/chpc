@@ -1,7 +1,8 @@
-package chpc.controllers;
+package chpc.database;
 
 import javax.swing.JComponent;
-import chpc.views.MainUI;
+import chpc.UI.MainUI;
+import chpc.database.Command;
 
 public class AddPanelCommand extends Command {
   private JComponent panel;
