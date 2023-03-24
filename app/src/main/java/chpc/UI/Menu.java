@@ -1,13 +1,13 @@
-package chpc.views;
+package chpc.UI;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
 
+import chpc.visualizations.View;
+import chpc.visualizations.ViewFactory;
 import com.google.common.collect.ImmutableMap;
-
-import chpc.controllers.ViewFactory;
 
 public class Menu extends JMenuBar {
   private View currentView;

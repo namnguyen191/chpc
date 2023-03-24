@@ -1,4 +1,4 @@
-package chpc.models;
+package chpc.dataLoader;
 
 public class NHPIRecord {
   private String refDate;

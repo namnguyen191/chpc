@@ -1,4 +1,6 @@
-package chpc.models;
+package chpc.dataLoader;
+
+import chpc.database.Db;
 
 import java.io.BufferedReader;
 import java.io.IOException;

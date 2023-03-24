@@ -1,8 +1,12 @@
-package chpc.controllers;
+package chpc.visualizations;
 
-import chpc.views.*;
+public interface ViewFactory {
 
-public class ViewFactory {
+  /**
+   *
+   * @param viewType it specifys the type of  visualization
+   * @return a selected visualization
+   */
   public static View createView(String viewType) {
     View view = null;
 

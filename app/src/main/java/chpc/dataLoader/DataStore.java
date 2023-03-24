@@ -1,4 +1,4 @@
-package chpc.models;
+package chpc.dataLoader;
 
 import java.util.HashMap;
 import java.util.HashSet;

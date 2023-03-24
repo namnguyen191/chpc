@@ -5,8 +5,8 @@ package chpc;
 
 import java.util.Properties;
 
-import chpc.models.Db;
-import chpc.views.MainUI;
+import chpc.database.Db;
+import chpc.UI.MainUI;
 
 public class App {
   public static void main(String[] args) {
