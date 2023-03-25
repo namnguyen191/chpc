@@ -10,9 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import chpc.dataLoader.DataStore;
-import chpc.database.AddPanelCommand;
-import chpc.database.NHPITable;
 import chpc.database.Db;
+import chpc.visualizations.NHPITable;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 
