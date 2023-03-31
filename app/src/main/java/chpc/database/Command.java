@@ -1,6 +1,6 @@
-package chpc.controllers;
+package chpc.database;
 
-import chpc.views.MainUI;
+import chpc.UI.MainUI;
 
 public abstract class Command {
   public MainUI mainUI;

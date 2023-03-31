@@ -1,13 +1,12 @@
-package chpc.views;
+package chpc.visualizations;
 
 import javax.swing.*;
 
-import chpc.models.DataStore;
-import chpc.controllers.ViewFactory;
-import chpc.models.Db;
-import chpc.models.NHPIRecord;
-import chpc.models.NHPIRecordDAO;
-import chpc.models.NHPIRecordDAOImpl;
+import chpc.dataLoader.DataStore;
+import chpc.database.Db;
+import chpc.dataLoader.NHPIRecord;
+import chpc.dataLoader.NHPIRecordDAO;
+import chpc.dataLoader.NHPIRecordDAOImpl;
 
 import java.sql.SQLException;
 import java.util.List;

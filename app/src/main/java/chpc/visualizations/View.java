@@ -1,6 +1,6 @@
-package chpc.views;
+package chpc.visualizations;
 
-import chpc.models.DataStore;
+import chpc.dataLoader.DataStore;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 
@@ -13,17 +13,32 @@ public abstract class View extends JFrame {
 
   DataStore dataStore;
 
+  /**
+   * create View instance with selected data
+   */
   public View() {
     dataStore = DataStore.getInstance();
   }
 
   // step1 access data
+
+  /**
+   * access selected data
+   */
   public abstract void addDataset();
 
   // step2 plot view
+
+  /**
+   * @return plotted view based on selected visualization
+   */
   public abstract JFreeChart plotView();
 
   // step3
+
+  /**
+   * create a selected visualization
+   */
   public void createChart() {
     // 1.get data
     addDataset();
@@ -57,9 +72,12 @@ public abstract class View extends JFrame {
     setVisible(true);
   }
 
+  /**
+   * a “Configure…” button in the frame with an internal window open with the appropriate parameterization of the configuration
+   */
   public void confiButton() {
     JDesktopPane desktopPane = new JDesktopPane();
-    JInternalFrame internalFrame = new InnerWindow(this).getInnerWindow();
+    JInternalFrame internalFrame = new ConfigWindow(this).getInnerWindow();
     desktopPane.add(internalFrame);
     setContentPane(desktopPane);
 

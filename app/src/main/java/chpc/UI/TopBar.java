@@ -1,4 +1,4 @@
-package chpc.views;
+package chpc.UI;
 
 import java.awt.Color;
 import java.sql.SQLException;
@@ -12,14 +12,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import chpc.controllers.AddPanelCommand;
-import chpc.models.DataStore;
 import chpc.controllers.NHPITable;
+
+import chpc.models.DataStore;
 import chpc.models.Db;
 import chpc.models.NHPIRecord;
 import chpc.models.NHPIRecordDAO;
 import chpc.models.NHPIRecordDAOImpl;
+
 import chpc.weka.WekaModule;
+
+import chpc.dataLoader.DataStore;
+import chpc.dataLoader.NHPIRecordDAO;
+import chpc.dataLoader.NHPIRecordDAOImpl;
+
+import chpc.database.AddPanelCommand;
+import chpc.database.NHPITable;
+import chpc.database.Db;
 
 public class TopBar extends JPanel {
   private NHPIRecordDAO recordDAO;
