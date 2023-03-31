@@ -48,7 +48,7 @@ public class Scatter extends View {
           double time = Double.parseDouble(date.substring(0, 4)) +
               Double.parseDouble(date.substring(5)) / 100;
           System.out.println("time: " + time);
-          allSeries.get(i).add(new Month(myDate), r.getValue());
+          allSeries.get(i).addOrUpdate(new Month(myDate), r.getValue());
 
         } catch (ParseException e) {
           e.printStackTrace();

@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import chpc.dataLoader.DataStore;
 import chpc.database.Db;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
@@ -46,7 +47,7 @@ public class MainUI extends JFrame {
     this.add(scrlpane, BorderLayout.CENTER);
 
     // Set Menu
-    this.setJMenuBar(new Menu());
+    this.setJMenuBar(new Menu(this));
 
     // Set size, visibility and terminate app on close
     this.setSize(1600, 900);

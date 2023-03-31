@@ -1,5 +1,6 @@
 package chpc.visualizations;
 
+import chpc.UI.MainUI;
 import chpc.dataLoader.DataStore;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,6 +18,18 @@ public abstract class View extends JFrame {
    * create View instance with selected data
    */
   public View() {
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        super.windowClosing(e);
+        JFrame frame = MainUI.getInstance();
+//        frame.setSize(900, 600);
+//        frame.pack();
+        frame.setVisible(true);
+        System.out.println("closing");
+      }
+    });
+
     dataStore = DataStore.getInstance();
   }
 

@@ -1,9 +1,6 @@
 package chpc.UI;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JRadioButtonMenuItem;
+import javax.swing.*;
 
 import chpc.visualizations.View;
 import chpc.visualizations.ViewFactory;
@@ -11,6 +8,7 @@ import com.google.common.collect.ImmutableMap;
 
 public class Menu extends JMenuBar {
   private View currentView;
+  private MainUI mainUI;
   private final ImmutableMap<String, String> CHARTS = ImmutableMap.<String, String>builder()
       .put("Line Chart", "Line")
       .put("Bar Chart", "Bar")
@@ -18,7 +16,8 @@ public class Menu extends JMenuBar {
       .put("Time Series Chart", "Time")
       .build();
 
-  Menu() {
+  Menu(MainUI mainui) {
+    mainUI = mainui;
     JMenu viewMenu = new JMenu("View");
 
     ButtonGroup btnGroup = new ButtonGroup();
@@ -41,6 +40,7 @@ public class Menu extends JMenuBar {
         this.currentView.dispose();
       }
       this.currentView = ViewFactory.createView(chartName);
+      mainUI.dispose();
     });
 
     return item;

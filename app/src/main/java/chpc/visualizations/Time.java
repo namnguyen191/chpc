@@ -50,7 +50,7 @@ public class Time extends View {
               Double.parseDouble(date.substring(5)) / 100;
           // test output
           System.out.println("time: " + time);
-          allSeries.get(i).add(new Month(myDate), r.getValue());
+          allSeries.get(i).addOrUpdate(new Month(myDate), r.getValue());
 
         } catch (ParseException e) {
           e.printStackTrace();
