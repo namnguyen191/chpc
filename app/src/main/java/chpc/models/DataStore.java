@@ -42,4 +42,10 @@ public class DataStore {
 
     return groupedRecords;
   }
+
+  public Set<String> getLoadedGeos(){
+    HashMap<String, Set<NHPIRecord>> groupedRecords = getGroupedLoadedData();
+    Set<String> groupedGeos = groupedRecords.keySet();
+    return groupedGeos;
+  }
 }

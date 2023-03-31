@@ -5,11 +5,20 @@ import weka.classifiers.Evaluation;
 import java.util.Random;
 import weka.core.Instances;
 
+/**
+ * Evaluate a model with training data using cross validation method
+ */
 public class ModelEvaluator {
+
+    /**
+     * Take a trained model and data used for training and evaluate model's metrics
+     * @param model Classifier object that has already been trained
+     * @param classifiedData Instances object used to train the classifier
+     */
     public void evaluate(Classifier model, Instances classifiedData){
         try{
             Evaluation eval = new Evaluation(classifiedData);
-            eval.crossValidateModel(model, classifiedData, 10, new Random(1));
+            eval.crossValidateModel(model, classifiedData, 4, new Random(1));
             System.out.println(eval.toSummaryString("\nResults\n======\n", false));
         } catch (Exception e1){
             System.out.println("Exception: Failed to cross validate model.");

@@ -10,12 +10,23 @@ import java.util.List;
 
 import chpc.models.NHPIRecord;
 
+/**
+ * Class for producing Instances object from a List of nhpi records
+ */
 public class InstancesFactory{
 
+    /**
+     * List of nhpi records to create Instances object
+     */
     List<NHPIRecord> dataSet;
 
+    /**
+     * Create Instances object from list of nhpi records, containing dates and nhpi values
+     * @param dataInput List of nhpi records
+     * @return Instances object of dates and nhpi values, sorted by date in increasing order
+     */
     public Instances createInstances(List<NHPIRecord> dataInput){
-        dataSet = RecordSorter.sortRecords(dataInput);
+        dataSet = RecordProcessor.sortRecords(dataInput);
 
         System.out.println("Sorted records: " + dataSet);
 

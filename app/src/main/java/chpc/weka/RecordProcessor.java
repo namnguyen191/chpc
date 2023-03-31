@@ -6,8 +6,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class RecordSorter {
+/**
+ * A class for processing NHPI records. Sorts and removes missing values.
+ */
+
+public class RecordProcessor {
     
+    /**
+     * Sort list of methods by increasing date. Returns a new sorted list of NHPI records.
+     * 
+     * @param inputList the list of nhpi records meant to be sorted  
+     */
     public static List<NHPIRecord> sortRecords(List<NHPIRecord> inputList){
         List<NHPIRecord> sortedRecords = new ArrayList<NHPIRecord>(inputList);
 
@@ -37,6 +46,17 @@ public class RecordSorter {
 
         Collections.sort(sortedRecords, comparator);
 
+        removeMissingValues(sortedRecords);
+
         return sortedRecords;
+    }
+
+    /**
+     * Remove all nhpi records from list that have missing values
+     * 
+     * @param inputList
+     */
+    public static void removeMissingValues(List<NHPIRecord> inputList){
+        inputList.removeIf(p -> p.getValue() == -1);
     }
 }

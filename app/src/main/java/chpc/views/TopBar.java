@@ -3,11 +3,14 @@ package chpc.views;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import chpc.controllers.AddPanelCommand;
 import chpc.models.DataStore;
@@ -16,10 +19,7 @@ import chpc.models.Db;
 import chpc.models.NHPIRecord;
 import chpc.models.NHPIRecordDAO;
 import chpc.models.NHPIRecordDAOImpl;
-import chpc.weka.InstancesFactory;
-import chpc.weka.ModelEvaluator;
-import chpc.weka.ModelTrainer;
-import weka.core.Instances;
+import chpc.weka.WekaModule;
 
 public class TopBar extends JPanel {
   private NHPIRecordDAO recordDAO;
@@ -100,20 +100,17 @@ public class TopBar extends JPanel {
   }
 
   private void onPredictModelClick(){
-    String geo = (String) this.countriesComboBox.getSelectedItem();
-    int fromYear = (int) this.fromYearComboBox.getSelectedItem();
-    int fromMonth = (int) this.fromMonthComboBox.getSelectedItem();
-    int toYear = (int) this.toYearComboBox.getSelectedItem();
-    int toMonth = (int) this.toMonthComboBox.getSelectedItem();
+    Set<String> loadedGeos = this.dataStore.getLoadedGeos();
+
+    String geo = PredictionSelectionWindow.getLoadedGeoChoice(loadedGeos);
+    int fromYear = 1981;
+    int fromMonth = 1;
+    int toYear = 2022;
+    int toMonth = 12;
     try {
       List<NHPIRecord> records = this.recordDAO.getRecordsByGeoAndDateRange(geo, fromYear, fromMonth, toYear, toMonth);
-      InstancesFactory instancesFactory = new InstancesFactory();
-      Instances data = instancesFactory.createInstances(records);
-      ModelTrainer mTrainer = new ModelTrainer();
-      mTrainer.buildModel(data);
-      //ModelEvaluator mEvaluator = new ModelEvaluator();
-      //mEvaluator.evaluate(mTrainer.getModel(), data);
-      mTrainer.getNext(data);
+      WekaModule mlModule = new WekaModule();
+      mlModule.MLFunc(records);
     } catch(SQLException e1){
       System.out.println("Something went wrong fetching data: " + e1.getMessage());
     }
