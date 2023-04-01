@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-import chpc.database.Db;
+import chpc.database.PostgresDb;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 
@@ -26,7 +26,7 @@ public class MainUI extends JFrame {
     // Set window title
     super("House Price Statistics");
 
-    this.nhpiDAO = new NHPIRecordDAOImpl(Db.getConnection());
+    this.nhpiDAO = new NHPIRecordDAOImpl(PostgresDb.getInstance().getConnection());
 
     // Set top bar
     Vector<String> availableGeos;

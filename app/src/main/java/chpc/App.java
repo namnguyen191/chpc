@@ -5,17 +5,17 @@ package chpc;
 
 import java.util.Properties;
 
-import chpc.database.Db;
+import chpc.database.PostgresDb;
 import chpc.UI.MainUI;
 
 public class App {
   public static void main(String[] args) {
-    String uri = "jdbc:postgresql://localhost:5432/nhpi";
+    String dbUrl = "localhost:5432/nhpi";
     Properties props = new Properties();
     props.setProperty("user", "admin");
     props.setProperty("password", "admin");
     props.setProperty("ssl", "false");
-    Db.initializeDb(uri, props);
+    PostgresDb.initializeDb(dbUrl, props);
 
     MainUI.getInstance();
   }

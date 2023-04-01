@@ -7,13 +7,15 @@ import java.util.Properties;
 /**
  * A singleton class that manage Database connection
  */
-public class Db {
+public class PostgresDb implements DbInterface {
+  private static PostgresDb instance;
   private static Connection conn;
+  private static String postgresDriver = "jdbc:postgresql://";
 
   /**
    * private constructor to make the Db class a Singleton
    */
-  private Db() {
+  private PostgresDb() {
   }
 
   /**
@@ -25,14 +27,22 @@ public class Db {
    *                   jdbc:postgresql://localhost:5432/nhpi
    * @param properties any extra properties, could be null
    */
-  public static void initializeDb(String uri, Properties properties) {
+  public static void initializeDb(String url, Properties properties) {
     try {
-      conn = DriverManager.getConnection(uri, properties);
+      conn = DriverManager.getConnection(PostgresDb.postgresDriver + url, properties);
+      PostgresDb.instance = new PostgresDb();
     } catch (Exception e) {
       System.out.println("Could not connect to DB! Terminating application");
       System.out.println(e.getMessage());
       System.exit(1);
     }
+  }
+
+  public static PostgresDb getInstance() {
+    if (PostgresDb.instance != null) {
+      return PostgresDb.instance;
+    }
+    throw new Error("DB has not been initialized yet");
   }
 
   /**
@@ -41,22 +51,22 @@ public class Db {
    * 
    * @return Connection object
    */
-  public static Connection getConnection() {
-    if (Db.conn == null) {
+  public Connection getConnection() {
+    if (PostgresDb.instance == null) {
       System.out.println("No connection has been established! Please initilize Db.");
     }
 
-    return Db.conn;
+    return PostgresDb.conn;
   }
 
   public static void main(String[] args) {
-    String uri = "jdbc:postgresql://localhost:5432/nhpi";
+    String uri = "localhost:5432/nhpi";
     Properties props = new Properties();
     props.setProperty("user", "admin");
     props.setProperty("password", "admin");
     props.setProperty("ssl", "false");
-    Db.initializeDb(uri, props);
-    Connection conn = Db.getConnection();
+    PostgresDb.initializeDb(uri, props);
+    Connection conn = PostgresDb.getInstance().getConnection();
     System.out.println(conn);
   }
 }

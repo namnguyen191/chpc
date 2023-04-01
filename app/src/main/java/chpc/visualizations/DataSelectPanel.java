@@ -3,7 +3,7 @@ package chpc.visualizations;
 import javax.swing.*;
 
 import chpc.dataLoader.DataStore;
-import chpc.database.Db;
+import chpc.database.PostgresDb;
 import chpc.dataLoader.NHPIRecord;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
@@ -18,7 +18,7 @@ public class DataSelectPanel {
   private NHPIRecordDAO recordDAO;
 
   public DataSelectPanel(View parent) {
-    this.recordDAO = new NHPIRecordDAOImpl(Db.getConnection());
+    this.recordDAO = new NHPIRecordDAOImpl(PostgresDb.getInstance().getConnection());
     selectData = Box.createVerticalBox();
     this.parent = parent;
     setBox();
