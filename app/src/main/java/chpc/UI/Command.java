@@ -1,6 +1,4 @@
-package chpc.database;
-
-import chpc.UI.MainUI;
+package chpc.UI;
 
 public abstract class Command {
   public MainUI mainUI;

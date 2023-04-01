@@ -10,9 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import chpc.dataLoader.DataStore;
-import chpc.database.AddPanelCommand;
-import chpc.database.NHPITable;
-import chpc.database.Db;
+import chpc.database.PostgresDb;
+import chpc.visualizations.NHPITable;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 
@@ -27,7 +26,7 @@ public class TopBar extends JPanel {
   private DataStore dataStore;
 
   public TopBar(MainUI mainUI, int minYear, int maxYear, Vector<String> availableGeos) {
-    this.recordDAO = new NHPIRecordDAOImpl(Db.getConnection());
+    this.recordDAO = new NHPIRecordDAOImpl(PostgresDb.getInstance().getConnection());
     this.dataStore = DataStore.getInstance();
     this.mainUI = mainUI;
 

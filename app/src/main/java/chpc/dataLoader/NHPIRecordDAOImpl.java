@@ -1,6 +1,6 @@
 package chpc.dataLoader;
 
-import chpc.database.Db;
+import chpc.database.PostgresDb;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -220,8 +220,8 @@ public class NHPIRecordDAOImpl implements NHPIRecordDAO {
     props.setProperty("user", "admin");
     props.setProperty("password", "admin");
     props.setProperty("ssl", "false");
-    Db.initializeDb(uri, props);
-    Connection conn = Db.getConnection();
+    PostgresDb.initializeDb(uri, props);
+    Connection conn = PostgresDb.getInstance().getConnection();
     NHPIRecordDAOImpl nhpiRecordDAO = new NHPIRecordDAOImpl(conn);
     try {
       nhpiRecordDAO.resetAndSeed();
