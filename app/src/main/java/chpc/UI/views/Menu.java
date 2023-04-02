@@ -1,12 +1,13 @@
-package chpc.UI;
+package chpc.UI.views;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
 
-import chpc.visualizations.View;
-import chpc.visualizations.ViewFactory;
+import chpc.dataLoader.DataStore;
+import chpc.visualizations.views.View;
+import chpc.visualizations.controllers.ViewFactory;
 import com.google.common.collect.ImmutableMap;
 
 public class Menu extends JMenuBar {
@@ -37,10 +38,12 @@ public class Menu extends JMenuBar {
     JRadioButtonMenuItem item = new JRadioButtonMenuItem(name);
 
     item.addActionListener(e -> {
+      String selectedGroup = VisualizationSelectionWindow
+          .getLoadedGeoChoice(DataStore.getInstance().getAllLoadedDataGroups());
       if (this.currentView != null) {
         this.currentView.dispose();
       }
-      this.currentView = ViewFactory.createView(chartName);
+      this.currentView = ViewFactory.createView(chartName, selectedGroup);
     });
 
     return item;

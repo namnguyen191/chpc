@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.visualizations.views;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -11,13 +11,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import chpc.dataLoader.NHPIRecord;
 
 import java.awt.*;
-import java.util.Set;
+import java.util.List;
 
 public class Line extends View {
   DefaultCategoryDataset dataset;
+  String dataGroup;
 
-  public Line() {
-    setTitle("Line Chart");
+  public Line(String dataGroup) {
+    this.dataGroup = dataGroup;
+    setTitle("Line Chart for " + dataGroup);
     chartType = "Line";
     createChart();
 
@@ -26,7 +28,7 @@ public class Line extends View {
   @Override
   public void addDataset() {
     dataset = new DefaultCategoryDataset();
-    Set<NHPIRecord> nhpiRecords = dataStore.getLoadedData();
+    List<NHPIRecord> nhpiRecords = dataStore.getLoadedDataForGroup(this.dataGroup);
     for (NHPIRecord r : nhpiRecords) {
       System.out.println(r.getValue() + " " + r.getGeo() + " " + r.getRefDate());
       dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());

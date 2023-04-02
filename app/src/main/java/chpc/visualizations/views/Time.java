@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.visualizations.views;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -11,16 +11,20 @@ import org.jfree.data.time.TimeSeriesCollection;
 
 import chpc.dataLoader.NHPIRecord;
 
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.awt.*;
 
 public class Time extends View {
   TimeSeriesCollection dataset;
+  String dataGroup;
 
-  public Time() {
-    setTitle("TimeSeries Chart");
+  public Time(String dataGroup) {
+    this.dataGroup = dataGroup;
+    setTitle("TimeSeries Chart for " + dataGroup);
     chartType = "Time";
     createChart();
   }
@@ -33,34 +37,27 @@ public class Time extends View {
     ArrayList<TimeSeries> allSeries = new ArrayList<>();
 
     // set series
-    var groupedRecords = dataStore.getGroupedLoadedData();
+    List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
     SimpleDateFormat standardDateFormat = new SimpleDateFormat("yyyy-MM");
     int i = 0;
-    for (var entry : groupedRecords.entrySet()) {
-      String geo = entry.getKey();
-      Set<NHPIRecord> records = entry.getValue();
-      allSeries.add(new TimeSeries(geo));
-      for (var r : records) {
-        String date = r.getRefDate();
-        try {
-          Date myDate = standardDateFormat.parse(date);
-          // test output
-          System.out.println("string: " + date.substring(0, 4) + " " + date.substring(5) + " " + r.getValue());
-          double time = Double.parseDouble(date.substring(0, 4)) +
-              Double.parseDouble(date.substring(5)) / 100;
-          // test output
-          System.out.println("time: " + time);
-          allSeries.get(i).add(new Month(myDate), r.getValue());
-
-        } catch (ParseException e) {
-          e.printStackTrace();
-        }
-
+    allSeries.add(new TimeSeries(this.dataGroup));
+    for (var r : records) {
+      String date = r.getRefDate();
+      try {
+        Date myDate = standardDateFormat.parse(date);
+        // test output
+        System.out.println("string: " + date.substring(0, 4) + " " + date.substring(5) + " " + r.getValue());
+        double time = Double.parseDouble(date.substring(0, 4)) +
+            Double.parseDouble(date.substring(5)) / 100;
+        // test output
+        System.out.println("time: " + time);
+        allSeries.get(i).add(new Month(myDate), r.getValue());
+      } catch (ParseException e) {
+        e.printStackTrace();
       }
-      dataset.addSeries(allSeries.get(i));
-      i++;
 
     }
+    dataset.addSeries(allSeries.get(i));
 
   }
 

@@ -1,17 +1,16 @@
 package chpc.dataLoader;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class DataStore {
   private static DataStore instance;
 
-  private static Set<NHPIRecord> loadedData;
+  private static HashMap<String, List<NHPIRecord>> loadedDataGroup;
 
   private DataStore() {
-    loadedData = new HashSet<NHPIRecord>();
+    loadedDataGroup = new HashMap<String, List<NHPIRecord>>();
   }
 
   public static DataStore getInstance() {
@@ -22,24 +21,36 @@ public class DataStore {
     return instance;
   }
 
-  public void loadData(List<NHPIRecord> newData) {
-    loadedData.addAll(newData);
+  public void loadData(String groupName, List<NHPIRecord> newData) {
+    loadedDataGroup.put(groupName, newData);
   }
 
-  public Set<NHPIRecord> getLoadedData() {
-    return loadedData;
+  public List<NHPIRecord> getLoadedDataForGroup(String groupName) {
+    return loadedDataGroup.get(groupName);
   }
 
-  public HashMap<String, Set<NHPIRecord>> getGroupedLoadedData() {
-    HashMap<String, Set<NHPIRecord>> groupedRecords = new HashMap<>();
-    for (NHPIRecord r : loadedData) {
-      var name = r.getGeo();
-      if (!groupedRecords.containsKey(name)) {
-        groupedRecords.put(name, new HashSet<>());
-      }
-      groupedRecords.get(name).add(r);
-    }
-
-    return groupedRecords;
+  public Set<String> getAllLoadedDataGroups() {
+    return loadedDataGroup.keySet();
   }
+
+  public boolean checkGroupAlreadyLoaded(String groupName) {
+    return loadedDataGroup.containsKey(groupName);
+  }
+
+  public void removeGroupData(String groupName) {
+    loadedDataGroup.remove(groupName);
+  }
+
+  // public HashMap<String, Set<NHPIRecord>> getGroupedLoadedData() {
+  // HashMap<String, Set<NHPIRecord>> groupedRecords = new HashMap<>();
+  // for (NHPIRecord r : loadedData) {
+  // var name = r.getGeo();
+  // if (!groupedRecords.containsKey(name)) {
+  // groupedRecords.put(name, new HashSet<>());
+  // }
+  // groupedRecords.get(name).add(r);
+  // }
+
+  // return groupedRecords;
+  // }
 }

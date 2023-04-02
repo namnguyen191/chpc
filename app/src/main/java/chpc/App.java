@@ -6,7 +6,7 @@ package chpc;
 import java.util.Properties;
 
 import chpc.database.PostgresDb;
-import chpc.UI.MainUI;
+import chpc.UI.views.MainUI;
 
 public class App {
   public static void main(String[] args) {
