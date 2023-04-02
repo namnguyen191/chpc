@@ -1,5 +1,7 @@
 package chpc.visualizations;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -13,6 +15,7 @@ import javax.swing.table.TableModel;
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
+import chpc.dataLoader.DataStore;
 import chpc.dataLoader.NHPIRecord;
 
 public class NHPITable extends JPanel {
@@ -20,19 +23,29 @@ public class NHPITable extends JPanel {
   private List<NHPIRecord> records;
   private JTable table;
   private JButton loadDataBtn;
+  String groupName;
 
-  public NHPITable(List<NHPIRecord> records, String title) {
+  public NHPITable(List<NHPIRecord> records, String groupName) {
+    this.groupName = groupName;
+    this.setLayout(new BorderLayout());
     this.records = records;
-
     this.table = new JTable();
-    this.add(new JScrollPane(this.table));
+    this.add(new JScrollPane(this.table), BorderLayout.CENTER);
 
     this.loadDataBtn = new JButton();
     loadDataBtn.addActionListener(e -> this.toggleButtonClick());
-    this.add(loadDataBtn);
+    this.add(loadDataBtn, BorderLayout.NORTH);
+
+    JButton deleteBtn = new JButton("Remove");
+    deleteBtn.setBackground(Color.RED);
+    deleteBtn.setOpaque(true);
+    deleteBtn.setForeground(Color.WHITE);
+    deleteBtn.setBorderPainted(false);
+    deleteBtn.addActionListener(e -> this.deleteLoadedData());
+    this.add(deleteBtn, BorderLayout.SOUTH);
 
     this.setBorder(BorderFactory.createTitledBorder(
-        BorderFactory.createTitledBorder(title)));
+        BorderFactory.createTitledBorder(groupName)));
 
     updateTableModel();
     updateButtonText();
@@ -95,5 +108,12 @@ public class NHPITable extends JPanel {
     } else {
       this.loadDataBtn.setText("View Raw");
     }
+  }
+
+  private void deleteLoadedData() {
+    DataStore.getInstance().removeGroupData(this.groupName);
+    var parent = this.getParent();
+    parent.remove(this);
+    parent.repaint();
   }
 }

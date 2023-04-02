@@ -15,13 +15,17 @@ import chpc.dataLoader.NHPIRecord;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Scatter extends View {
   TimeSeriesCollection dataset;
+  String dataGroup;
 
-  public Scatter() {
-    setTitle("Scatter Chart");
+  public Scatter(String dataGroup) {
+    this.dataGroup = dataGroup;
+    setTitle("Scatter Chart for " + dataGroup);
     chartType = "Scatter";
     createChart();
   }
@@ -33,32 +37,26 @@ public class Scatter extends View {
     ArrayList<TimeSeries> allSeries = new ArrayList<>();
 
     // set series
-    var groupedRecords = dataStore.getGroupedLoadedData();
+    List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
     SimpleDateFormat standardDateFormat = new SimpleDateFormat("yyyy-MM");
     int i = 0;
-    for (var entry : groupedRecords.entrySet()) {
-      String geo = entry.getKey();
-      Set<NHPIRecord> records = entry.getValue();
-      allSeries.add(new TimeSeries(geo));
-      for (NHPIRecord r : records) {
-        String date = r.getRefDate();
-        try {
-          Date myDate = standardDateFormat.parse(date);
-          System.out.println("string: " + date.substring(0, 4) + " " + date.substring(5) + " " + r.getValue());
-          double time = Double.parseDouble(date.substring(0, 4)) +
-              Double.parseDouble(date.substring(5)) / 100;
-          System.out.println("time: " + time);
-          allSeries.get(i).add(new Month(myDate), r.getValue());
+    allSeries.add(new TimeSeries(this.dataGroup));
+    for (NHPIRecord r : records) {
+      String date = r.getRefDate();
+      try {
+        Date myDate = standardDateFormat.parse(date);
+        System.out.println("string: " + date.substring(0, 4) + " " + date.substring(5) + " " + r.getValue());
+        double time = Double.parseDouble(date.substring(0, 4)) +
+            Double.parseDouble(date.substring(5)) / 100;
+        System.out.println("time: " + time);
+        allSeries.get(i).add(new Month(myDate), r.getValue());
 
-        } catch (ParseException e) {
-          e.printStackTrace();
-        }
-
+      } catch (ParseException e) {
+        e.printStackTrace();
       }
-      dataset.addSeries(allSeries.get(i));
-      i++;
 
     }
+    dataset.addSeries(allSeries.get(i));
 
   }
 

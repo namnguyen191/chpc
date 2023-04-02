@@ -10,13 +10,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import chpc.dataLoader.NHPIRecord;
 
 import java.awt.*;
-import java.util.Set;
+import java.util.List;
 
 public class Bar extends View {
   DefaultCategoryDataset dataset;
+  String dataGroup;
 
-  public Bar() {
-    setTitle("Bar Chart");
+  public Bar(String dataGroup) {
+    this.dataGroup = dataGroup;
+    setTitle("Bar Chart for " + dataGroup);
     chartType = "Bar";
     createChart();
   }
@@ -24,7 +26,7 @@ public class Bar extends View {
   public void addDataset() {
 
     dataset = new DefaultCategoryDataset();
-    Set<NHPIRecord> regions = dataStore.getLoadedData();
+    List<NHPIRecord> regions = dataStore.getLoadedDataForGroup(this.dataGroup);
     System.out.println("bar view: " + regions);
     for (NHPIRecord r : regions) {
       dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
