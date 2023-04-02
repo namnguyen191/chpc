@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.dataLoader;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

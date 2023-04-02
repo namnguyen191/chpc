@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.visualizations.views;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;

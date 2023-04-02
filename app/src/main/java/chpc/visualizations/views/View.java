@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.visualizations.views;
 
 import chpc.dataLoader.DataStore;
 import org.jfree.chart.ChartPanel;

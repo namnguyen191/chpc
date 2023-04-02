@@ -1,4 +1,4 @@
-package chpc.UI;
+package chpc.UI.views;
 
 import java.awt.Color;
 import java.sql.SQLException;
@@ -11,9 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.JOptionPane.showMessageDialog;
 
+import chpc.dataLoader.NHPITable;
+import chpc.UI.controllers.AddPanelCommand;
 import chpc.dataLoader.DataStore;
 import chpc.database.PostgresDb;
-import chpc.visualizations.NHPITable;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 

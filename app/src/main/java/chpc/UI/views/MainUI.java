@@ -1,4 +1,4 @@
-package chpc.UI;
+package chpc.UI.views;
 
 import java.awt.*;
 import java.sql.SQLException;

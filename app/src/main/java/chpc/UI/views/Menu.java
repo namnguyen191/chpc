@@ -1,4 +1,4 @@
-package chpc.UI;
+package chpc.UI.views;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
@@ -6,8 +6,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
 
 import chpc.dataLoader.DataStore;
-import chpc.visualizations.View;
-import chpc.visualizations.ViewFactory;
+import chpc.visualizations.views.View;
+import chpc.visualizations.controllers.ViewFactory;
 import com.google.common.collect.ImmutableMap;
 
 public class Menu extends JMenuBar {

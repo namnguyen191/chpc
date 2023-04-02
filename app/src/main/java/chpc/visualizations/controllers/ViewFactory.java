@@ -1,4 +1,6 @@
-package chpc.visualizations;
+package chpc.visualizations.controllers;
+
+import chpc.visualizations.views.*;
 
 public interface ViewFactory {
 
