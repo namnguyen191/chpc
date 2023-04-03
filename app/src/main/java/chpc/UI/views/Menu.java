@@ -43,7 +43,7 @@ public class Menu extends JMenuBar {
       if (this.currentView != null) {
         this.currentView.dispose();
       }
-      this.currentView = ViewFactory.createView(chartName, selectedGroup);
+      this.currentView = ViewFactory.createView(chartName, selectedGroup, false);
     });
 
     return item;

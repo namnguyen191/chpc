@@ -22,8 +22,10 @@ import java.util.List;
 public class Scatter extends View {
   TimeSeriesCollection dataset;
   String dataGroup;
+  boolean predicted;
 
-  public Scatter(String dataGroup) {
+  public Scatter(String dataGroup, boolean predicted) {
+    this.predicted = predicted;
     this.dataGroup = dataGroup;
     setTitle("Scatter Chart for " + dataGroup);
     chartType = "Scatter";
@@ -38,6 +40,11 @@ public class Scatter extends View {
 
     // set series
     List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
+    if (this.predicted) {
+      records = dataStore.getPredictedData(this.dataGroup);
+    } else {
+      records = dataStore.getLoadedDataForGroup(this.dataGroup);
+    }
     SimpleDateFormat standardDateFormat = new SimpleDateFormat("yyyy-MM");
     int i = 0;
     allSeries.add(new TimeSeries(this.dataGroup));
