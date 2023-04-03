@@ -1,7 +1,6 @@
-package chpc.weka;
+package chpc.prediction;
 
 import chpc.dataLoader.NHPIRecord;
-import chpc.visualizations.PopUpWindow;
 
 import java.util.ArrayList;
 import java.util.List;

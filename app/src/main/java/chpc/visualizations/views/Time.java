@@ -17,12 +17,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.awt.*;
-
+/**
+ * A class can create a window containing a Time chart
+ */
 public class Time extends View {
   TimeSeriesCollection dataset;
   String dataGroup;
   boolean predicted;
-
+  /**
+   * constructor to  create a window containing a time chart
+   * @param dataGroup it specifies the which group of data is used to display on chart
+   * @param predicted it specifies if the chart is used to show predicated datq
+   */
   public Time(String dataGroup, boolean predicted) {
     this.predicted = predicted;
     this.dataGroup = dataGroup;
@@ -31,6 +37,9 @@ public class Time extends View {
     createChart();
   }
 
+  /**
+   * access selected data
+   */
   public void addDataset() {
 
     // set series
@@ -68,6 +77,10 @@ public class Time extends View {
 
   }
 
+  /**
+   *
+   * @return a plotted a time chart
+   */
   public JFreeChart plotView() {
     XYPlot plot = new XYPlot();
     XYSplineRenderer splinerenderer1 = new XYSplineRenderer();

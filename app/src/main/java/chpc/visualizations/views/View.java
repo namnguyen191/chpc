@@ -7,13 +7,16 @@ import org.jfree.chart.JFreeChart;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A class can be inherited to create a window containing different kind of chart
+ */
 public abstract class View extends JFrame {
   public String chartType;
 
   DataStore dataStore;
 
   /**
-   * create View instance with selected data
+   * default constructor can create View instance with selected data
    */
   public View() {
     dataStore = DataStore.getInstance();

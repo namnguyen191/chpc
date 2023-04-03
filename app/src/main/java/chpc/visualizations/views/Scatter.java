@@ -18,12 +18,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * A class can create a window containing a Scatter chart
+ */
 public class Scatter extends View {
   TimeSeriesCollection dataset;
   String dataGroup;
   boolean predicted;
-
+  /**
+   * constructor to  create a window containing a Scatter chart
+   * @param dataGroup it specifies the which group of data is used to display on chart
+   * @param predicted it specifies if the chart is used to show predicated datq
+   */
   public Scatter(String dataGroup, boolean predicted) {
     this.predicted = predicted;
     this.dataGroup = dataGroup;
@@ -32,6 +38,9 @@ public class Scatter extends View {
     createChart();
   }
 
+  /**
+   * access selected data
+   */
   public void addDataset() {
 
     // set series
@@ -67,6 +76,10 @@ public class Scatter extends View {
 
   }
 
+  /**
+   *
+   * @return a plotted a scatter chart
+   */
   public JFreeChart plotView() {
     XYPlot plot = new XYPlot();
     XYItemRenderer itemrenderer1 = new XYLineAndShapeRenderer(false, true);
@@ -78,12 +91,8 @@ public class Scatter extends View {
     plot.setDomainAxis(domainAxis);
     plot.setRangeAxis(new NumberAxis("NHPI"));
 
-    // plot.setDataset(1, dataset2);
-    // plot.setRenderer(1, itemrenderer2);
-    // plot.setRangeAxis(1, new NumberAxis("US$"));
 
     plot.mapDatasetToRangeAxis(0, 0);// 1st dataset to 1st y-axis
-    // plot.mapDatasetToRangeAxis(1, 1); // 2nd dataset to 2nd y-axis
 
     JFreeChart scatterChart = new JFreeChart("Scatter: New housing price index (NHPI)",
         new Font("Serif", Font.BOLD, 18), plot, true);

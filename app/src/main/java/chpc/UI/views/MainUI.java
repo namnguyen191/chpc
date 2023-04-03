@@ -10,11 +10,18 @@ import chpc.database.PostgresDb;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 
+/**
+ * A singleton class can create a window when run the program
+ */
 public class MainUI extends JFrame {
   private static MainUI instance;
   private NHPIRecordDAO nhpiDAO;
   public JPanel mainContentPanel;
 
+  /**
+   *
+   * @return one window used to interact with the users
+   */
   public static MainUI getInstance() {
     if (instance == null)
       instance = new MainUI();
@@ -22,6 +29,9 @@ public class MainUI extends JFrame {
     return instance;
   }
 
+  /**
+   * private constructor used to create window containing lots of components
+   */
   private MainUI() {
     // Set window title
     super("House Price Statistics");

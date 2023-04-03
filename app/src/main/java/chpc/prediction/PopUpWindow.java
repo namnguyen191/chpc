@@ -1,4 +1,4 @@
-package chpc.visualizations;
+package chpc.prediction;
 
 import java.util.List;
 import java.util.Set;

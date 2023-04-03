@@ -10,8 +10,12 @@ import chpc.visualizations.views.View;
 import chpc.visualizations.controllers.ViewFactory;
 import com.google.common.collect.ImmutableMap;
 
+/**
+ * A class can crate a menu that will show a selected chart based on the choice
+ */
 public class Menu extends JMenuBar {
   private View currentView;
+
   private final ImmutableMap<String, String> CHARTS = ImmutableMap.<String, String>builder()
       .put("Line Chart", "Line")
       .put("Bar Chart", "Bar")
@@ -19,6 +23,9 @@ public class Menu extends JMenuBar {
       .put("Time Series Chart", "Time")
       .build();
 
+  /**
+   * a constructor to generate a view menu containing 4 choices: line,bar, scatter and time
+   */
   Menu() {
     JMenu viewMenu = new JMenu("View");
 
@@ -34,6 +41,12 @@ public class Menu extends JMenuBar {
     this.add(viewMenu);
   }
 
+  /**
+   *
+   * @param name it specifies the name of menu item
+   * @param chartName it specifies the type of chart
+   * @return the instance of an menuItem
+   */
   private JRadioButtonMenuItem createMenuItem(String name, String chartName) {
     JRadioButtonMenuItem item = new JRadioButtonMenuItem(name);
 

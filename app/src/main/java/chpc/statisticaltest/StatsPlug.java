@@ -1,4 +1,4 @@
-package chpc.Statistics;
+package chpc.statisticaltest;
 
 public interface StatsPlug {
     public void loadValues(double[] values);
