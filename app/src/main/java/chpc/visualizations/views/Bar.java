@@ -15,8 +15,10 @@ import java.util.List;
 public class Bar extends View {
   DefaultCategoryDataset dataset;
   String dataGroup;
+  boolean predicted;
 
-  public Bar(String dataGroup) {
+  public Bar(String dataGroup, boolean predicted) {
+    this.predicted = predicted;
     this.dataGroup = dataGroup;
     setTitle("Bar Chart for " + dataGroup);
     chartType = "Bar";
@@ -26,9 +28,23 @@ public class Bar extends View {
   public void addDataset() {
 
     dataset = new DefaultCategoryDataset();
-    List<NHPIRecord> regions = dataStore.getLoadedDataForGroup(this.dataGroup);
+    List<NHPIRecord> regions;
+    if (this.predicted) {
+      regions = dataStore.getPredictedData(this.dataGroup);
+    } else {
+      regions = dataStore.getLoadedDataForGroup(this.dataGroup);
+    }
     System.out.println("bar view: " + regions);
     for (NHPIRecord r : regions) {
+      dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
+    }
+
+  }
+
+  public void addDataset(List<NHPIRecord> inputList) {
+
+    dataset = new DefaultCategoryDataset();
+    for (NHPIRecord r : inputList) {
       dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
     }
 

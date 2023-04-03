@@ -21,8 +21,10 @@ import java.awt.*;
 public class Time extends View {
   TimeSeriesCollection dataset;
   String dataGroup;
+  boolean predicted;
 
-  public Time(String dataGroup) {
+  public Time(String dataGroup, boolean predicted) {
+    this.predicted = predicted;
     this.dataGroup = dataGroup;
     setTitle("TimeSeries Chart for " + dataGroup);
     chartType = "Time";
@@ -38,6 +40,11 @@ public class Time extends View {
 
     // set series
     List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
+    if (this.predicted) {
+      records = dataStore.getPredictedData(this.dataGroup);
+    } else {
+      records = dataStore.getLoadedDataForGroup(this.dataGroup);
+    }
     SimpleDateFormat standardDateFormat = new SimpleDateFormat("yyyy-MM");
     int i = 0;
     allSeries.add(new TimeSeries(this.dataGroup));

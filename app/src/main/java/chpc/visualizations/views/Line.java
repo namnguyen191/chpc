@@ -16,8 +16,10 @@ import java.util.List;
 public class Line extends View {
   DefaultCategoryDataset dataset;
   String dataGroup;
+  boolean predicted;
 
-  public Line(String dataGroup) {
+  public Line(String dataGroup, boolean predicted) {
+    this.predicted = predicted;
     this.dataGroup = dataGroup;
     setTitle("Line Chart for " + dataGroup);
     chartType = "Line";
@@ -29,10 +31,24 @@ public class Line extends View {
   public void addDataset() {
     dataset = new DefaultCategoryDataset();
     List<NHPIRecord> nhpiRecords = dataStore.getLoadedDataForGroup(this.dataGroup);
+    if (this.predicted) {
+      nhpiRecords = dataStore.getPredictedData(this.dataGroup);
+    } else {
+      nhpiRecords = dataStore.getLoadedDataForGroup(this.dataGroup);
+    }
     for (NHPIRecord r : nhpiRecords) {
       System.out.println(r.getValue() + " " + r.getGeo() + " " + r.getRefDate());
       dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
     }
+  }
+
+  public void addDataset(List<NHPIRecord> inputList) {
+
+    dataset = new DefaultCategoryDataset();
+    for (NHPIRecord r : inputList) {
+      dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
+    }
+
   }
 
   @Override

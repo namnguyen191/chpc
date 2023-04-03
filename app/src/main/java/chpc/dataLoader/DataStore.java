@@ -1,5 +1,6 @@
 package chpc.dataLoader;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -9,8 +10,14 @@ public class DataStore {
 
   private static HashMap<String, List<NHPIRecord>> loadedDataGroup;
 
+  private static List<GeoFromTo> loadedOptions;
+
+  private static HashMap<String, List<NHPIRecord>> loadedPredictions;
+
   private DataStore() {
     loadedDataGroup = new HashMap<String, List<NHPIRecord>>();
+    loadedOptions = new ArrayList<GeoFromTo>();
+    loadedPredictions = new HashMap<String, List<NHPIRecord>>();
   }
 
   public static DataStore getInstance() {
@@ -29,6 +36,10 @@ public class DataStore {
     return loadedDataGroup.get(groupName);
   }
 
+  public void loadPrediction(String title, List<NHPIRecord> predictedData) {
+    loadedPredictions.put(title, predictedData);
+  }
+
   public Set<String> getAllLoadedDataGroups() {
     return loadedDataGroup.keySet();
   }
@@ -41,16 +52,15 @@ public class DataStore {
     loadedDataGroup.remove(groupName);
   }
 
-  // public HashMap<String, Set<NHPIRecord>> getGroupedLoadedData() {
-  // HashMap<String, Set<NHPIRecord>> groupedRecords = new HashMap<>();
-  // for (NHPIRecord r : loadedData) {
-  // var name = r.getGeo();
-  // if (!groupedRecords.containsKey(name)) {
-  // groupedRecords.put(name, new HashSet<>());
-  // }
-  // groupedRecords.get(name).add(r);
-  // }
+  public void loadGeoFromTos(GeoFromTo setOfParams) {
+    loadedOptions.add(setOfParams);
+  }
 
-  // return groupedRecords;
-  // }
+  public List<NHPIRecord> getPredictedData(String title) {
+    return loadedPredictions.get(title);
+  }
+
+  public Set<String> getPredictionTitles() {
+    return loadedPredictions.keySet();
+  }
 }

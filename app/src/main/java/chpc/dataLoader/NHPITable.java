@@ -15,9 +15,6 @@ import javax.swing.table.TableModel;
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
-import chpc.dataLoader.DataStore;
-import chpc.dataLoader.NHPIRecord;
-
 public class NHPITable extends JPanel {
   private boolean isRawMode = false;
   private List<NHPIRecord> records;
