@@ -16,16 +16,14 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 import chpc.dataLoader.NHPITable;
 import chpc.UI.controllers.AddPanelCommand;
+import chpc.UI.controllers.PopUpWindow;
 import chpc.dataLoader.DataStore;
 import chpc.database.PostgresDb;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.util.Pair;
 
-import chpc.Statistics.StatisticsResults;
-import chpc.Statistics.StatsPlug;
 import chpc.dataLoader.NHPIRecord;
-import chpc.visualizations.PopUpWindow;
 import chpc.visualizations.controllers.ViewFactory;
 import chpc.visualizations.views.View;
 import chpc.weka.RecordProcessor;

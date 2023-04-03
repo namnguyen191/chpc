@@ -1,6 +1,5 @@
-package chpc.visualizations;
+package chpc.UI.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -8,8 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.apache.commons.math3.util.Pair;
-
-import chpc.dataLoader.GeoFromTo;
 
 /**
  * Class for creating a new dialog window for selecting from loaded regions
