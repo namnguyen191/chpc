@@ -1,4 +1,4 @@
-package chpc.weka;
+package chpc.prediction;
 
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;

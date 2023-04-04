@@ -1,4 +1,4 @@
-package chpc.weka;
+package chpc.prediction;
 
 import chpc.UI.controllers.PopUpWindow;
 import chpc.dataLoader.NHPIRecord;

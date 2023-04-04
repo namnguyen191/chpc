@@ -1,4 +1,4 @@
-package chpc.weka;
+package chpc.prediction;
 
 import java.util.ArrayList;
 
