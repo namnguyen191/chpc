@@ -75,7 +75,7 @@ public class PopUpWindow {
     JFrame choiceWindow = new JFrame();
     choiceWindow.setAlwaysOnTop(true);
 
-    Object[] options = { "Bar", "Line", "Scatter", "Line" };
+    Object[] options = { "Bar", "Line", "Scatter", "Time" };
     Object message = "Please choose from among the following chart options: ";
     Object selectObj = JOptionPane.showInputDialog(choiceWindow, message, "Chart Selection", JOptionPane.PLAIN_MESSAGE,
         null, options, options[0]);
