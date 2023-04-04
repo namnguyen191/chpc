@@ -1,0 +1,9 @@
+chpc
+chpc.database
+chpc.dataLoader
+chpc.prediction
+chpc.statisticaltest
+chpc.UI.controllers
+chpc.UI.views
+chpc.visualizations.controllers
+chpc.visualizations.views
