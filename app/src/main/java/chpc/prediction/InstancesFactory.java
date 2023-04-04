@@ -57,6 +57,13 @@ public class InstancesFactory{
         return data;
     }
 
+    /**
+     * Add numToAdd Instance objects to an Instances object
+     * @param dataSet Instances object
+     * @param numToAdd Number of Instance objects to add to dataSet
+     * 
+     * @return String array of the years added
+     */
     public String[] addInstance(Instances dataSet, int numToAdd){
         double[] row;
 

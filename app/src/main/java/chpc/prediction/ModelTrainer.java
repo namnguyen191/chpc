@@ -7,6 +7,11 @@ import org.apache.commons.math3.util.Pair;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 
+/**
+ * Interface for models
+ * Any class implementing this can be used for model prediction.
+ * So different classifiers can be swapped in and out.
+ */
 public interface ModelTrainer {
     public void buildModel(Instances data);
 

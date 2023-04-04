@@ -62,6 +62,10 @@ public class PopUpWindow {
     return selectObjResult;
   }
 
+  /**
+   * Method for getting a title from the user to name the set of values resulting from using the Predict Model button
+   * @return String input from user representing title of predicted data set
+   */
   public static String getTitleWindow() {
     JFrame choiceWindow = new JFrame();
     choiceWindow.setAlwaysOnTop(true);
@@ -71,11 +75,15 @@ public class PopUpWindow {
     return title;
   }
 
+  /**
+   * Method for getting a choice from the user on what view they want
+   * @return String of either "Bar", "Line", "Scatter", or "Time"
+   */
   public static String getViewChoiceWindow() {
     JFrame choiceWindow = new JFrame();
     choiceWindow.setAlwaysOnTop(true);
 
-    Object[] options = { "Bar", "Line", "Scatter", "Line" };
+    Object[] options = { "Bar", "Line", "Scatter", "Time" };
     Object message = "Please choose from among the following chart options: ";
     Object selectObj = JOptionPane.showInputDialog(choiceWindow, message, "Chart Selection", JOptionPane.PLAIN_MESSAGE,
         null, options, options[0]);
@@ -84,6 +92,10 @@ public class PopUpWindow {
     return selectObjResult;
   }
 
+  /**
+   * Dialog window for showing any string result
+   * @param result String that user wants to display in dialog window
+   */
   public static void showResult(String result) {
     JPanel container = new JPanel();
     JFrame resultWindow = new JFrame();
