@@ -1,4 +1,4 @@
-package chpc.weka;
+package chpc.prediction;
 
 import weka.core.Attribute;
 import weka.core.DenseInstance;

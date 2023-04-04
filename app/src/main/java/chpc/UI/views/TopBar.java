@@ -26,12 +26,14 @@ import org.apache.commons.math3.util.Pair;
 import chpc.dataLoader.NHPIRecord;
 import chpc.visualizations.controllers.ViewFactory;
 import chpc.visualizations.views.View;
-import chpc.weka.RecordProcessor;
-import chpc.weka.WekaModule;
+import chpc.prediction.RecordProcessor;
+import chpc.prediction.WekaModule;
 import chpc.dataLoader.NHPIRecordDAO;
 import chpc.dataLoader.NHPIRecordDAOImpl;
 import chpc.dataLoader.GeoFromTo;
-
+/**
+ * A class used to create panel used to choose the region and time series
+ */
 public class TopBar extends JPanel {
   private NHPIRecordDAO recordDAO;
   private MainUI mainUI;
@@ -43,7 +45,13 @@ public class TopBar extends JPanel {
   private DataStore dataStore;
   private View currentView;
   private int maxYear;
-
+  /**
+   *
+   * @param mainUI it is the window where the TopBar want to be added to
+   * @param minYear it is the minimum year that can be selected for time series
+   * @param maxYear it is the maximum year that can be selected for time series
+   * @param availableGeos is the set of regions  that can be selected
+   */
   public TopBar(MainUI mainUI, int minYear, int maxYear, Vector<String> availableGeos) {
     this.maxYear = maxYear;
     this.recordDAO = new NHPIRecordDAOImpl(PostgresDb.getInstance().getConnection());
@@ -105,7 +113,9 @@ public class TopBar extends JPanel {
     // Set background to gray
     this.setBackground(Color.GRAY);
   }
-
+  /**
+   * it specifies the event after clicking the button. This event is loading data based on the choice
+   */
   private void onLoadDataClick() {
     String geo = (String) this.countriesComboBox.getSelectedItem();
     int fromYear = (int) this.fromYearComboBox.getSelectedItem();
@@ -130,7 +140,9 @@ public class TopBar extends JPanel {
       System.out.println("Something went wrong fetching data: " + e1.getMessage());
     }
   }
-
+  /**
+   * it is used to restrict the user from selecting a "TO" that is smaller than "FROM"
+   */
   private void setToDateBound() {
     int fromYear = (int) this.fromYearComboBox.getSelectedItem();
     int fromMonth = (int) this.fromMonthComboBox.getSelectedItem();
@@ -162,7 +174,9 @@ public class TopBar extends JPanel {
       this.toMonthComboBox.setSelectedItem(toMonth);
     }
   }
-
+  /**
+   * it specifies the event after clicking the button. This event is predicting future house price
+   */
   private void onPredictModelClick() {
     Set<String> loadedGeos = this.dataStore.getAllLoadedDataGroups();
     if (loadedGeos.isEmpty()) {
@@ -190,7 +204,9 @@ public class TopBar extends JPanel {
       }
     }
   }
-
+  /**
+   * it specifies the event after clicking the button. This event is provided for the statistical comparison
+   */
   private void onStatsClick() {
     Set<String> options = dataStore.getAllLoadedDataGroups();
     if (options.size() < 2) {
@@ -228,7 +244,9 @@ public class TopBar extends JPanel {
       PopUpWindow.showResult(result);
     }
   }
-
+  /**
+   * it specifies the event after clicking the button. This event is provided for showing the predicted data by a chart
+   */
   public void onPredictChartClick() {
     String predictionTitle = PopUpWindow.getChoiceWindow(dataStore.getPredictionTitles());
     String chartType = PopUpWindow.getViewChoiceWindow();

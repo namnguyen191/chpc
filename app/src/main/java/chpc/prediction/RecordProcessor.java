@@ -1,4 +1,4 @@
-package chpc.weka;
+package chpc.prediction;
 
 import chpc.dataLoader.NHPIRecord;
 import java.util.ArrayList;

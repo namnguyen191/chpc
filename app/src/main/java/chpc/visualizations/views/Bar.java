@@ -11,12 +11,18 @@ import chpc.dataLoader.NHPIRecord;
 
 import java.awt.*;
 import java.util.List;
-
+/**
+ * A class can create a window containing a bar chart
+ */
 public class Bar extends View {
   DefaultCategoryDataset dataset;
   String dataGroup;
   boolean predicted;
-
+  /**
+   * constructor to  create a window containing a bar chart
+   * @param dataGroup it specifies the which group of data is used to display on chart
+   * @param predicted it specifies if the chart is used to show predicated datq
+   */
   public Bar(String dataGroup, boolean predicted) {
     this.predicted = predicted;
     this.dataGroup = dataGroup;
@@ -24,7 +30,9 @@ public class Bar extends View {
     chartType = "Bar";
     createChart();
   }
-
+  /**
+   * access selected data
+   */
   public void addDataset() {
 
     dataset = new DefaultCategoryDataset();
@@ -41,15 +49,19 @@ public class Bar extends View {
 
   }
 
-  public void addDataset(List<NHPIRecord> inputList) {
+//  public void addDataset(List<NHPIRecord> inputList) {
+//
+//    dataset = new DefaultCategoryDataset();
+//    for (NHPIRecord r : inputList) {
+//      dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
+//    }
+//
+//  }
 
-    dataset = new DefaultCategoryDataset();
-    for (NHPIRecord r : inputList) {
-      dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
-    }
-
-  }
-
+  /**
+   *
+   * @return a plotted a bar chart
+   */
   public JFreeChart plotView() {
     CategoryPlot plot = new CategoryPlot();
 

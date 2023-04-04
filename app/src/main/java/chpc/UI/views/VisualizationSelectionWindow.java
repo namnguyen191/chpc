@@ -16,7 +16,7 @@ public class VisualizationSelectionWindow {
    * static method to create a window with drop down selection box of loaded
    * group data
    * 
-   * @param loadedGeos Set of group names that have been loaded in
+   * @param loadedGroups Set of group names that have been loaded in
    * @return user choice of group as a string
    */
   public static String getLoadedGeoChoice(Set<String> loadedGroups) {

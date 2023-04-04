@@ -18,12 +18,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * A class can create a window containing a Scatter chart
+ */
 public class Scatter extends View {
   TimeSeriesCollection dataset;
   String dataGroup;
   boolean predicted;
-
+  /**
+   * constructor to  create a window containing a Scatter chart
+   * @param dataGroup it specifies the which group of data is used to display on chart
+   * @param predicted it specifies if the chart is used to show predicated datq
+   */
   public Scatter(String dataGroup, boolean predicted) {
     this.predicted = predicted;
     this.dataGroup = dataGroup;
@@ -31,7 +37,9 @@ public class Scatter extends View {
     chartType = "Scatter";
     createChart();
   }
-
+  /**
+   * access selected data
+   */
   public void addDataset() {
 
     // set series
@@ -66,7 +74,10 @@ public class Scatter extends View {
     dataset.addSeries(allSeries.get(i));
 
   }
-
+  /**
+   *
+   * @return a plotted a scatter chart
+   */
   public JFreeChart plotView() {
     XYPlot plot = new XYPlot();
     XYItemRenderer itemrenderer1 = new XYLineAndShapeRenderer(false, true);
