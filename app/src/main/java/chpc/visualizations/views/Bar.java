@@ -16,6 +16,7 @@ import java.util.List;
  * A class can create a window containing a bar chart
  */
 public class Bar extends View {
+  public static final String CHART_TYPE = "Bar";
   DefaultCategoryDataset dataset;
 
   /**
@@ -26,7 +27,7 @@ public class Bar extends View {
    * @param predicted it specifies if the chart is used to show predicated datq
    */
   public Bar(String dataGroup, boolean predicted) {
-    super(dataGroup, predicted, "Bar Chart for " + dataGroup, "Time");
+    super(dataGroup, predicted, "Bar Chart for " + dataGroup);
   }
 
   /**

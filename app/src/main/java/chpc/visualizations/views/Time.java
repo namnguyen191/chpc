@@ -23,6 +23,7 @@ import java.awt.*;
  */
 public class Time extends View {
   TimeSeriesCollection dataset;
+  public static final String CHART_TYPE = "Time";
 
   /**
    * constructor to create a window containing a time chart
@@ -32,7 +33,7 @@ public class Time extends View {
    * @param predicted it specifies if the chart is used to show predicated datq
    */
   public Time(String dataGroup, boolean predicted) {
-    super(dataGroup, predicted, "TimeSeries Chart for " + dataGroup, "Time");
+    super(dataGroup, predicted, "TimeSeries Chart for " + dataGroup);
   }
 
   /**
