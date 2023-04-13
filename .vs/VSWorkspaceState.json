@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\src",
+    "\\app\\src\\main",
+    "\\app\\src\\main\\java",
+    "\\app\\src\\main\\java\\chpc",
+    "\\app\\src\\main\\java\\chpc\\prediction"
+  ],
+  "SelectedNode": "\\app\\src\\main\\java\\chpc\\prediction\\InstancesFactory.java",
+  "PreviewInSolutionExplorer": false
+}

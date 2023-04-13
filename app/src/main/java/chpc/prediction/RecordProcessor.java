@@ -24,32 +24,22 @@ public class RecordProcessor {
 
         Comparator<NHPIRecord> comparator = new Comparator<NHPIRecord>(){
             public int compare(NHPIRecord a, NHPIRecord b){
-                String aGeo = a.getGeo();
-                String bGeo = b.getGeo();
-                String aDate = a.getRefDate();
-                String bDate = b.getRefDate();
-                Double aValue = a.getValue();
-                Double bValue = b.getValue();
-
-                if(!aGeo.equals(bGeo)){
-                    return aGeo.compareTo(bGeo);
+                if(!(a.getGeo()).equals(b.getGeo())){
+                    return a.getGeo().compareTo(b.getGeo());
                 }
-                else if(!aDate.equals(bDate)){
-                    return aDate.compareTo(bDate);
+                else if(!(a.getRefDate()).equals(b.getRefDate())){
+                    return a.getRefDate().compareTo(b.getRefDate());
                 }
-                else if(!(aValue==bValue)){
-                    return (aValue < bValue) ? -1 : 1;
+                else if(!(a.getValue()==b.getValue())){
+                    return (a.getValue() < b.getValue()) ? -1 : 1;
                 }
                 else {
                     return 0;
                 }
             }
         };
-
         Collections.sort(sortedRecords, comparator);
-
         removeMissingValues(sortedRecords);
-
         return sortedRecords;
     }
 
