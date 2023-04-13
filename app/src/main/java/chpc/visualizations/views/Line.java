@@ -12,26 +12,24 @@ import chpc.dataLoader.NHPIRecord;
 
 import java.awt.*;
 import java.util.List;
+
 /**
  * A class can create a window containing a line chart
  */
 public class Line extends View {
   DefaultCategoryDataset dataset;
-  String dataGroup;
-  boolean predicted;
+
   /**
-   * constructor to create  a window containing a line chart
-   * @param dataGroup it specifies the which group of data is used to display on chart
+   * constructor to create a window containing a line chart
+   * 
+   * @param dataGroup it specifies the which group of data is used to display on
+   *                  chart
    * @param predicted it specifies if the chart is used to show predicated datq
    */
   public Line(String dataGroup, boolean predicted) {
-    this.predicted = predicted;
-    this.dataGroup = dataGroup;
-    setTitle("Line Chart for " + dataGroup);
-    chartType = "Line";
-    createChart();
-
+    super(dataGroup, predicted, "Line Chart for " + dataGroup, "Time");
   }
+
   /**
    * access selected data
    */
@@ -50,14 +48,14 @@ public class Line extends View {
     }
   }
 
-//  public void addDataset(List<NHPIRecord> inputList) {
-//
-//    dataset = new DefaultCategoryDataset();
-//    for (NHPIRecord r : inputList) {
-//      dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
-//    }
-//
-//  }
+  // public void addDataset(List<NHPIRecord> inputList) {
+  //
+  // dataset = new DefaultCategoryDataset();
+  // for (NHPIRecord r : inputList) {
+  // dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
+  // }
+  //
+  // }
   /**
    *
    * @return a plotted a bar chart

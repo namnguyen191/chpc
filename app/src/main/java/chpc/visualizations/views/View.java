@@ -8,12 +8,26 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * A class can be inherited to create a window containing different kind of chart
+ * A class can be inherited to create a window containing different kind of
+ * chart
  */
 public abstract class View extends JFrame {
   public String chartType;
-
+  String dataGroup;
+  boolean predicted;
   DataStore dataStore;
+
+  /**
+   * default constructor can create View instance with selected data
+   */
+  public View(String dataGroup, boolean predicted, String title, String chartType) {
+    dataStore = DataStore.getInstance();
+    this.predicted = predicted;
+    this.dataGroup = dataGroup;
+    setTitle(title);
+    this.chartType = chartType;
+    createChart();
+  }
 
   /**
    * default constructor can create View instance with selected data
