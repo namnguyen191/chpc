@@ -17,6 +17,8 @@ import java.util.List;
  * A class can create a window containing a line chart
  */
 public class Line extends View {
+  public static final String CHART_TYPE = "Line";
+
   DefaultCategoryDataset dataset;
 
   /**
@@ -27,7 +29,7 @@ public class Line extends View {
    * @param predicted it specifies if the chart is used to show predicated datq
    */
   public Line(String dataGroup, boolean predicted) {
-    super(dataGroup, predicted, "Line Chart for " + dataGroup, "Time");
+    super(dataGroup, predicted, "Line Chart for " + dataGroup);
   }
 
   /**

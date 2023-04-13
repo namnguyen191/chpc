@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 
 import org.apache.commons.math3.util.Pair;
 
+import chpc.visualizations.controllers.ViewFactory;
+
 /**
  * Class for creating a new dialog window for selecting from loaded regions
  */
@@ -75,7 +77,7 @@ public class PopUpWindow {
     JFrame choiceWindow = new JFrame();
     choiceWindow.setAlwaysOnTop(true);
 
-    Object[] options = { "Bar", "Line", "Scatter", "Line" };
+    Object[] options = ViewFactory.AVAILABLE_CHARTS.toArray();
     Object message = "Please choose from among the following chart options: ";
     Object selectObj = JOptionPane.showInputDialog(choiceWindow, message, "Chart Selection", JOptionPane.PLAIN_MESSAGE,
         null, options, options[0]);

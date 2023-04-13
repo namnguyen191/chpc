@@ -12,7 +12,7 @@ import java.awt.*;
  * chart
  */
 public abstract class View extends JFrame {
-  public String chartType;
+  public static final String CHART_TYPE = "Default Abstract View";
   String dataGroup;
   boolean predicted;
   DataStore dataStore;
@@ -20,12 +20,11 @@ public abstract class View extends JFrame {
   /**
    * default constructor can create View instance with selected data
    */
-  public View(String dataGroup, boolean predicted, String title, String chartType) {
+  public View(String dataGroup, boolean predicted, String title) {
     dataStore = DataStore.getInstance();
     this.predicted = predicted;
     this.dataGroup = dataGroup;
     setTitle(title);
-    this.chartType = chartType;
     createChart();
   }
 

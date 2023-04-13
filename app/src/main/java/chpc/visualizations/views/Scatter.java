@@ -23,6 +23,8 @@ import java.util.List;
  * A class can create a window containing a Scatter chart
  */
 public class Scatter extends View {
+  public static final String CHART_TYPE = "Scatter";
+
   TimeSeriesCollection dataset;
 
   /**
@@ -33,7 +35,7 @@ public class Scatter extends View {
    * @param predicted it specifies if the chart is used to show predicated datq
    */
   public Scatter(String dataGroup, boolean predicted) {
-    super(dataGroup, predicted, "Scatter Chart for " + dataGroup, "Time");
+    super(dataGroup, predicted, "Scatter Chart for " + dataGroup);
   }
 
   /**
