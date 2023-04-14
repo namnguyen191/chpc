@@ -14,23 +14,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-import chpc.dataLoader.NHPITable;
+import chpc.dataLoader.*;
 import chpc.UI.controllers.AddPanelCommand;
 import chpc.UI.controllers.PopUpWindow;
-import chpc.dataLoader.DataStore;
 import chpc.database.PostgresDb;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.util.Pair;
 
-import chpc.dataLoader.NHPIRecord;
 import chpc.visualizations.controllers.ViewFactory;
 import chpc.visualizations.views.View;
 import chpc.prediction.RecordProcessor;
 import chpc.prediction.WekaModule;
-import chpc.dataLoader.NHPIRecordDAO;
-import chpc.dataLoader.NHPIRecordDAOImpl;
-import chpc.dataLoader.GeoFromTo;
+
 /**
  * A class used to create panel used to choose the region and time series
  */
@@ -122,13 +118,14 @@ public class TopBar extends JPanel {
     int fromMonth = (int) this.fromMonthComboBox.getSelectedItem();
     int toYear = (int) this.toYearComboBox.getSelectedItem();
     int toMonth = (int) this.toMonthComboBox.getSelectedItem();
+    Geo select_geo = new Geo(geo,fromYear,fromMonth,toYear,toMonth);
     try {
       GeoFromTo geoFromTo = new GeoFromTo(geo, fromYear + " " + fromMonth, toYear + " " + toMonth);
       if (dataStore.checkGroupAlreadyLoaded(geoFromTo.toString())) {
         showMessageDialog(null, "This data has already been loaded");
         return;
       }
-      var records = this.recordDAO.getRecordsByGeoAndDateRange(geo, fromYear, fromMonth, toYear, toMonth);
+      var records = this.recordDAO.getRecordsByGeoAndDateRange(select_geo);
 
       var table = new NHPITable(records, geoFromTo.toString());
       new AddPanelCommand(mainUI, table).execute();

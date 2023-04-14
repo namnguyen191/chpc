@@ -6,8 +6,7 @@ import java.util.List;
 public interface NHPIRecordDAO {
   public List<NHPIRecord> getAllRecords() throws SQLException;
 
-  public List<NHPIRecord> getRecordsByGeoAndDateRange(String geo, int startYear, int startMonth, int endYear,
-      int endMonth) throws SQLException;
+  public List<NHPIRecord> getRecordsByGeoAndDateRange(Geo select_geo) throws SQLException;
 
   public List<String> getAllGeos() throws SQLException;
 
