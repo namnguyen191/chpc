@@ -40,19 +40,9 @@ public class Time extends View {
    * access selected data
    */
   public void addDataset() {
-
-    // set series
-
     dataset = new TimeSeriesCollection();
     ArrayList<TimeSeries> allSeries = new ArrayList<>();
-
-    // set series
-    List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
-    if (this.predicted) {
-      records = dataStore.getPredictedData(this.dataGroup);
-    } else {
-      records = dataStore.getLoadedDataForGroup(this.dataGroup);
-    }
+    List<NHPIRecord> records =setSeries();
     SimpleDateFormat standardDateFormat = new SimpleDateFormat("yyyy-MM");
     int i = 0;
     allSeries.add(new TimeSeries(this.dataGroup));
@@ -60,22 +50,26 @@ public class Time extends View {
       String date = r.getRefDate();
       try {
         Date myDate = standardDateFormat.parse(date);
-        // test output
-        System.out.println("string: " + date.substring(0, 4) + " " + date.substring(5) + " " + r.getValue());
-        double time = Double.parseDouble(date.substring(0, 4)) +
-            Double.parseDouble(date.substring(5)) / 100;
-        // test output
-        System.out.println("time: " + time);
         allSeries.get(i).add(new Month(myDate), r.getValue());
       } catch (ParseException e) {
         e.printStackTrace();
       }
-
     }
     dataset.addSeries(allSeries.get(i));
-
   }
-
+  /**
+   *  it helps to set series
+   * @return the list contain series
+   */
+  List<NHPIRecord> setSeries(){
+    if (this.predicted) {
+      List<NHPIRecord> records = dataStore.getPredictedData(this.dataGroup);
+      return records;
+    } else {
+      List<NHPIRecord> records = dataStore.getLoadedDataForGroup(this.dataGroup);
+      return records;
+    }
+  }
   /**
    *
    * @return a plotted a time chart
