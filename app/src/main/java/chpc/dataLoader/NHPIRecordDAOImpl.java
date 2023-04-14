@@ -47,17 +47,16 @@ public class NHPIRecordDAOImpl implements NHPIRecordDAO {
   }
 
   @Override
-  public List<NHPIRecord> getRecordsByGeoAndDateRange(String geo, int startYear, int startMonth, int endYear,
-      int endMonth) throws SQLException {
-    String from = startYear + "-" + String.format("%02d", startMonth);
-    String to = endYear + "-" + String.format("%02d", endMonth);
+  public List<NHPIRecord> getRecordsByGeoAndDateRange(Geo select_geo) throws SQLException {
+    String from = select_geo.fromYear + "-" + String.format("%02d", select_geo.fromMonth);
+    String to = select_geo.toYear + "-" + String.format("%02d", select_geo.toMonth);
     String query = "SELECT * FROM nhpiRecords WHERE geo = ? AND refDate >= ?  AND refDate <= ?;";
 
     List<NHPIRecord> records = new ArrayList<>();
     try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
       System.out
-          .println("Getting nhpi records for " + geo + " from " + from + " to " + to);
-      preparedStatement.setString(1, geo);
+              .println("Getting nhpi records for " + select_geo.geo + " from " + from + " to " + to);
+      preparedStatement.setString(1, select_geo.geo);
       preparedStatement.setString(2, from);
       preparedStatement.setString(3, to);
       System.out.println(preparedStatement);
