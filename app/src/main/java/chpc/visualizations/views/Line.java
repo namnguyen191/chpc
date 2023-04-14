@@ -50,14 +50,7 @@ public class Line extends View {
     }
   }
 
-  // public void addDataset(List<NHPIRecord> inputList) {
-  //
-  // dataset = new DefaultCategoryDataset();
-  // for (NHPIRecord r : inputList) {
-  // dataset.setValue(r.getValue(), r.getGeo(), r.getRefDate());
-  // }
-  //
-  // }
+
   /**
    *
    * @return a plotted a bar chart
