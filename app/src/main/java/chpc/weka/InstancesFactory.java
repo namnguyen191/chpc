@@ -25,37 +25,46 @@ public class InstancesFactory{
      * @param dataInput List of nhpi records
      * @return Instances object of dates and nhpi values, sorted by date in increasing order
      */
-    public Instances createInstances(List<NHPIRecord> dataInput){
+    public Instances createInstances(List<NHPIRecord> dataInput) {
         dataSet = RecordProcessor.sortRecords(dataInput);
-
         System.out.println("Sorted records: " + dataSet);
+        ArrayList<Attribute> attributes = createAttributes();
+        Instances data = new Instances("Dataset", attributes, 0);
+        populateInstancesWithData(data, dataSet);
+        if (data.classIndex() == -1) {
+            data.setClassIndex(data.numAttributes() - 1);
+        }
+        return data;
+    }
 
+    private ArrayList<Attribute> createAttributes() {
         ArrayList<Attribute> attributes = new ArrayList<Attribute>();
         attributes.add(new Attribute("date", "yyyy-MM"));
         attributes.add(new Attribute("NHPI value"));
-
-        Instances data = new Instances("Dataset", attributes, 0);
-
-        double[] row;
-
-        for(NHPIRecord nhpiRecord : dataSet){
-            row = new double[data.numAttributes()];
-            String date = nhpiRecord.getRefDate();
-            try{
-                row[0] = data.attribute(0).parseDate(date);
-            } catch (ParseException pe1){
-                System.out.println("Error! ParseException: " + date + " at " + pe1.getErrorOffset());
-            }
-
-            row[1] = nhpiRecord.getValue();
-            data.add(new DenseInstance(1.0, row));
-        }
-        if(data.classIndex() == -1){
-            data.setClassIndex(data.numAttributes() - 1);
-        }
-        //System.out.println(data);
-        return data;
+        return attributes;
     }
+
+    private void populateInstancesWithData(Instances data, List<NHPIRecord> dataSet) {
+        double[] row;
+        for (NHPIRecord nhpiRecord : dataSet) {
+            row = new double[data.numAttributes()];
+            addRecordToInstances(data, nhpiRecord, row);
+        }
+    }
+
+    private void addRecordToInstances(Instances data, NHPIRecord nhpiRecord, double[] row) {
+        String date = nhpiRecord.getRefDate();
+        try {
+            row[0] = data.attribute(0).parseDate(date);
+        } catch (ParseException pe1) {
+            System.out.println("Error! ParseException: " + date + " at " + pe1.getErrorOffset());
+        }
+
+        row[1] = nhpiRecord.getValue();
+        data.add(new DenseInstance(1.0, row));
+    }
+
+
 
     public String[] addInstance(Instances dataSet, int numToAdd){
         double[] row;
