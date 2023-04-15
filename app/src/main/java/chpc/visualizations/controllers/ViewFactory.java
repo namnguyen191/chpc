@@ -24,7 +24,6 @@ public interface ViewFactory {
    */
   public static View createView(String viewType, String dataGroup, boolean predicted) {
     View view = null;
-
     switch (viewType) {
       case Bar.CHART_TYPE:
         view = new Bar(dataGroup, predicted);
@@ -39,7 +38,6 @@ public interface ViewFactory {
         view = new Time(dataGroup, predicted);
         break;
     }
-
     return view;
   }
 }
